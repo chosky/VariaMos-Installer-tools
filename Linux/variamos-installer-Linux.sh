@@ -9,7 +9,7 @@
 #          with its necesary dependecies and configuration of enviroment variables
 #          for Linux.
 #
-# Modifications:
+# Modifications: 13/10/17: Make the file excutor.
 # 
 
 function append_to_file {
@@ -52,11 +52,12 @@ else
 	sudo apt-get install swi-prolog swi-prolog-java
     fi
 fi
-append_to_file "export SWI_HOME_DIR=/usr/lib/swi-prolog" $HOME/.bashrc
-append_to_file "export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar" $HOME/.bashrc
+
+#append_to_file "export SWI_HOME_DIR=/usr/lib/swi-prolog" $HOME/.bashrc
+#append_to_file "export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar" $HOME/.bashrc
 
 echo "The last step is to download VariaMos in this link (PLEASE DOWNLOAD THE LAST VERSION): "
 echo "https://variamos.com/home/variamos/downloads/" 
 echo "You can opened VariaMos every moment you want with only one click or executing: "
-echo "    java -jar variamos-<<version of VariaMos>>.jar "
+echo "    source variamos-launcher-Linux.sh variamos-<<version of VariaMos>>.jar "
 echo "ENJOY IT :) "

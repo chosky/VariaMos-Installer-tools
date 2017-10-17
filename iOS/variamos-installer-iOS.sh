@@ -9,7 +9,7 @@
 #          with its necesary dependecies and configuration of enviroment variables
 #          for iOS.
 #
-# Modifications: 1. 13/10/17: Adding yhe instalation of Homebrew for the efective maintenance.
+# Modifications: 1. 13/10/17: Adding the instalation of Homebrew for the efective maintenance.
 #                
 
 function append_to_file {

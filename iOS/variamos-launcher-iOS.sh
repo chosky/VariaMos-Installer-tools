@@ -1,5 +1,3 @@
-#!/bin/bash
-
 export SWI_HOME_DIR=/Applications/SWI_Prolog.app/Contents/swipl
 export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar
 export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar

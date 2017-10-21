@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <version>1.0.1.20</version>
+    <variamos-dl>https://variamos.com/home/download/variamos-1-0-1-20-1-0-beta-20-2/?wpdmdl=568</variamos-dl>
+    <solver>
+        <Windowsx86>http://www.swi-prolog.org/download/stable/bin/swipl-w32-723.exe</Windowsx86>
+	<Windowsx64>http://www.swi-prolog.org/download/stable/bin/swipl-w64-723.exe</Windowsx64>
+	<OSX>http://www.swi-prolog.org/download/stable/bin/SWI-Prolog-7.2.3.dmg</OSX>
+    </solver>
+</configuration>

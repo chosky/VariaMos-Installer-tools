@@ -14,8 +14,10 @@ import variamos.Variamos;
  * @author José David Henao Ocampo - Monitor EDS
  */
 public class Executor {
-    public void Executor(){
-        
+    
+    String ruteVariamos = "";
+    public void Executor(String ruteVariamos){
+        this.ruteVariamos = ruteVariamos;
     }
     
     public void executorCode(){
@@ -35,7 +37,7 @@ public class Executor {
             installer.configureEnvironmentVariables(configuration.operativeSystem);
             
             //Downloading VariaMos 
-            installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version);
+            installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, ruteVariamos);
             
         } catch (UnknownHostException ex) {
             Logger.getLogger(Variamos.class.getName()).log(Level.SEVERE, null, ex);

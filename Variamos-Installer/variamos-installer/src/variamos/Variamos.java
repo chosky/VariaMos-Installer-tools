@@ -1,6 +1,5 @@
 package variamos;
 
-import src.GUI.*;
 /**
  *
  * @author José David Henao Ocampo - Monitor EDS

@@ -18,46 +18,44 @@ import java.nio.file.StandardCopyOption;
  */
 public class Installer {
     
-    public void downloadVariamosFromURL(String url, String configuration) throws MalformedURLException, FileNotFoundException, IOException, InterruptedException {
+    public void downloadVariamosFromURL(String url, String configuration, String rute) throws MalformedURLException, FileNotFoundException, IOException, InterruptedException {
         System.out.println("Downloading VariaMos " + configuration + "...");
         URL newUrl = new URL(url);
 
-        Path targetPath = new File(System.getProperty("use      "
-                + ""
-                + "r.dir") + "/variamos.jar").toPath();
+        Path targetPath = new File(rute + "/variamos.jar").toPath();
         
         Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Variamos has been downloaded successfully.");
     }
     
-    public void launchVariamos(String operativeSystem, String rute, boolean execute) throws IOException {
+    public void launchVariamos(String operativeSystem, String ruteLauncher, String ruteJar, boolean execute) throws IOException {
         Process process = null;
         if (operativeSystem.contains("Windows")) {
-            PrintWriter writer = new PrintWriter(rute+".bat", "UTF-8");
+            PrintWriter writer = new PrintWriter(ruteLauncher + "\\Variamos_Launcher.bat", "UTF-8");
             writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
-            writer.println("java -jar variamos.jar");
+            writer.println("java -jar " + ruteJar + "\\variamos.jar");
             writer.close();
             if (execute) {
-                String[] cmd = {"cmd", "/c", "Variamos_Launcher.bat"};
+                String[] cmd = {"cmd", "/c", ruteJar + "\\Variamos_Launcher.bat"};
                 process = Runtime.getRuntime().exec(cmd);
             }
         } else if (operativeSystem.contains("Linux")) {
-            PrintWriter writer = new PrintWriter(rute + ".sh", "UTF-8");
+            PrintWriter writer = new PrintWriter(ruteLauncher + "/Variamos_Launcher.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/usr/lib/swi-prolog");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -jar variamos.jar");
+            writer.println("java -jar " + ruteJar + "/variamos.jar");
             writer.close();
             if(execute) 
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh Variamos_Launcher.sh"});
+                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
         } else if (operativeSystem.contains("Mac OS")) {
-            PrintWriter writer = new PrintWriter(rute + ".sh", "UTF-8");
+            PrintWriter writer = new PrintWriter(ruteLauncher + "/Variamos_Launcher.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/Applications/SWI-Prolog.app/Contents/swipl");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
             writer.println("export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin14.3.0/ -jar variamos.jar");
+            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin14.3.0/ -jar " + ruteJar + "/variamos.jar");
             writer.close();
             if(execute)
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh Variamos_Launcher.sh"});
+                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
         }
     }
     
@@ -72,6 +70,7 @@ public class Installer {
     
     public void installSolver(String operativeSystem, String solverName) throws IOException, InterruptedException {
         Process process = null;
+        System.out.println(operativeSystem + " " + solverName);
         if (operativeSystem.contains("Windows")) {
             String[] cmd = {"cmd", "/c", System.getProperty("user.dir") + "\\" + solverName + "\""};
             process = Runtime.getRuntime().exec(cmd);

@@ -17,6 +17,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         infoLbl.setEditable(false);
+        this.setTitle("Instalador de VariaMos");
         
         cancelBtn.addActionListener(new ActionListener() {
             @Override
@@ -46,7 +47,7 @@ public class Inicio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         variamosTitle.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 36)); // NOI18N
-        variamosTitle.setText("VariaMos Installer");
+        variamosTitle.setText("Instalador de VariaMos");
 
         nextBtn.setText("siguiente");
 
@@ -54,7 +55,7 @@ public class Inicio extends javax.swing.JFrame {
 
         infoLbl.setColumns(20);
         infoLbl.setRows(5);
-        infoLbl.setText("Herramienta para la instalación de VariaMos \ncon todas sus dependencias, instalacion de \nSWI-Prolog y configuración de sus variables \nde ambiente.\nLa herramienta es funcional para distintos \nsistemas operativos como Windows, \nLinux (distrivuciones de Debian) e IOs.\n\nDesarrollada por el monitor de EDS.\nMedellín-EAFIT-2017");
+        infoLbl.setText("Herramienta para la instalación de VariaMos \ncon todas sus dependencias, instalación de \nSWI-Prolog y configuración de sus variables \nde ambiente.\nLa herramienta es funcional para distintos \nsistemas operativos como Windows, \nLinux (distribuciones de Debian) e IOs.\n\nDesarrollada por el monitor de EDS.\nMedellín-EAFIT-2017");
         jScrollPane1.setViewportView(infoLbl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -63,18 +64,19 @@ public class Inicio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cancelBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(variamosTitle))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -25,23 +25,23 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="nextBtn" min="-2" pref="97" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="293" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nextBtn" min="-2" pref="97" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="variamosTitle" min="-2" pref="293" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="variamosTitle" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="293" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -68,7 +68,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Franklin Gothic Medium Cond" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="VariaMos Installer"/>
+        <Property name="text" type="java.lang.String" value="Instalador de VariaMos"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="nextBtn">
@@ -92,7 +92,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Herramienta para la instalaci&#xf3;n de VariaMos &#xa;con todas sus dependencias, instalacion de &#xa;SWI-Prolog y configuraci&#xf3;n de sus variables &#xa;de ambiente.&#xa;La herramienta es funcional para distintos &#xa;sistemas operativos como Windows, &#xa;Linux (distrivuciones de Debian) e IOs.&#xa;&#xa;Desarrollada por el monitor de EDS.&#xa;Medell&#xed;n-EAFIT-2017"/>
+            <Property name="text" type="java.lang.String" value="Herramienta para la instalaci&#xf3;n de VariaMos &#xa;con todas sus dependencias, instalaci&#xf3;n de &#xa;SWI-Prolog y configuraci&#xf3;n de sus variables &#xa;de ambiente.&#xa;La herramienta es funcional para distintos &#xa;sistemas operativos como Windows, &#xa;Linux (distribuciones de Debian) e IOs.&#xa;&#xa;Desarrollada por el monitor de EDS.&#xa;Medell&#xed;n-EAFIT-2017"/>
           </Properties>
         </Component>
       </SubComponents>

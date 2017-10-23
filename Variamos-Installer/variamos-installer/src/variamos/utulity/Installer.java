@@ -18,14 +18,22 @@ import java.nio.file.StandardCopyOption;
  */
 public class Installer {
     
-    public void downloadVariamosFromURL(String url, String configuration, String rute) throws MalformedURLException, FileNotFoundException, IOException, InterruptedException {
+    public boolean downloadVariamosFromURL(String url, String configuration, String rute) throws MalformedURLException, FileNotFoundException, IOException, InterruptedException {
         System.out.println("Downloading VariaMos " + configuration + "...");
-        URL newUrl = new URL(url);
+        try {
+            URL newUrl = new URL(url);
 
-        Path targetPath = new File(rute + "/variamos.jar").toPath();
+            Path targetPath = new File(rute + "/variamos.jar").toPath();
         
-        Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("Variamos has been downloaded successfully.");
+            Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Variamos has been downloaded successfully.");
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("No se logró hacer conexion");
+            System.out.println(e);
+            return false;
+        }
     }
     
     public void launchVariamos(String operativeSystem, String ruteLauncher, String ruteJar, boolean execute) throws IOException {
@@ -43,7 +51,7 @@ public class Installer {
             PrintWriter writer = new PrintWriter(ruteLauncher + "/Variamos_Launcher.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/usr/lib/swi-prolog");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -jar " + ruteJar + "/variamos.jar");
+            writer.println("java -jar " + ruteJar + "/variamos.jar\"");
             writer.close();
             if(execute) 
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
@@ -59,13 +67,20 @@ public class Installer {
         }
     }
     
-    public void downloadSolverFromURL(String url, String solverName) throws MalformedURLException, FileNotFoundException, IOException {
-        URL _url = new URL(url);
-        File solver = new File(System.getProperty("user.dir") + "/" + solverName);
-        solver.deleteOnExit();
-        Path targetPath = solver.toPath();
+    public boolean downloadSolverFromURL(String url, String solverName) throws MalformedURLException, FileNotFoundException, IOException {
+        try {
+            URL _url = new URL(url);
+            File solver = new File(System.getProperty("user.dir") + "/" + solverName);
+            solver.deleteOnExit();
+            Path targetPath = solver.toPath();
 
-        Files.copy(_url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(_url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            return true;
+        } catch (Exception e){
+            System.out.println("No se pudo hacer conexion.");
+            System.out.println(e);
+            return false;
+        }
     }
     
     public void installSolver(String operativeSystem, String solverName) throws IOException, InterruptedException {

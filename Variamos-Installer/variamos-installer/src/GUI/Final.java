@@ -38,10 +38,10 @@ public class Final extends javax.swing.JFrame {
                 if(conf.operativeSystem.contains("Windows"))
                     inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, true);
                 else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS"))
-                    inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, true);
+                    inst.launchVariamos(conf.operativeSystem, "~/Desktop", variamosRute, false);
             } else {
                 if(conf.operativeSystem.contains("Windows"))
-                    inst.launchVariamos(conf.operativeSystem, "~/Desktop", variamosRute, false);
+                    inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, false);
                 else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS"))
                     inst.launchVariamos(conf.operativeSystem, "~/Desktop", variamosRute, false);
             }
@@ -49,7 +49,7 @@ public class Final extends javax.swing.JFrame {
             if (executeVariamos.isSelected()) {
                 inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, true);
             } else {
-                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, false);
+                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, true);
             }
         }
         this.dispose();

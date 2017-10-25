@@ -35,21 +35,31 @@ public class Final extends javax.swing.JFrame {
         variamos.utulity.Configuration conf = new variamos.utulity.Configuration();
         if (directAccessLauncher.isSelected()) {
             if (executeVariamos.isSelected()) {
-                if(conf.operativeSystem.contains("Windows"))
+                if(conf.operativeSystem.contains("Windows")) {
                     inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, true);
-                else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS"))
-                    inst.launchVariamos(conf.operativeSystem, "~/Desktop", variamosRute, false);
+                } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
+                    try {
+                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Desktop", variamosRute, true);
+                    } catch (IOException ex) {
+                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Escritorio", variamosRute, true);
+                    }
+                }
             } else {
-                if(conf.operativeSystem.contains("Windows"))
+                if(conf.operativeSystem.contains("Windows")) {
                     inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, false);
-                else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS"))
-                    inst.launchVariamos(conf.operativeSystem, "~/Desktop", variamosRute, false);
+                } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
+                    try {
+                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Desktop", variamosRute, false);
+                    } catch (IOException ex) {
+                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Escritorio", variamosRute, false);
+                    }
+                }
             }
         } else {
             if (executeVariamos.isSelected()) {
                 inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, true);
             } else {
-                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, true);
+                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, false);
             }
         }
         this.dispose();

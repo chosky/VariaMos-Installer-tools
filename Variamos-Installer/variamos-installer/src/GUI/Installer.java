@@ -93,10 +93,13 @@ public class Installer extends javax.swing.JFrame {
                 downloadLbl.setForeground(Color.red);
                 exe.Executor(variamosRuteTxt.getText());
                 exe.executorCode();
-                if(!exe.conexionSolver){
-                    JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar el solver");
-                    downloadLbl.setText("Descarga y configuración fallida");
-                    return;
+                
+                if(System.getProperty("os.name").contains("Windows")){
+                    if(!exe.conexionSolverWindows){
+                        JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar el solver");
+                        downloadLbl.setText("Descarga y configuración fallida");
+                        return;
+                    }
                 }
                 if(!exe.conexion){
                     JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar variamos");

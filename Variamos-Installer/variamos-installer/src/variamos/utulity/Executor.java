@@ -16,7 +16,7 @@ import variamos.Variamos;
 public class Executor {
     
     String ruteVariamos = "";
-    public boolean conexion, conexionSolver;
+    public boolean conexion, conexionSolverWindows;
     
     public void Executor(String ruteVariamos){
         this.ruteVariamos = ruteVariamos;
@@ -32,9 +32,9 @@ public class Executor {
             //Downloading solver
             if(configuration.solverDl != null){
                 if(installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName))
-                    conexionSolver = true;
+                    conexionSolverWindows = true;
                 else
-                    conexionSolver = false;
+                    conexionSolverWindows = false;
             }
             installer.installSolver(configuration.operativeSystem, configuration.solverName);
             
@@ -46,6 +46,7 @@ public class Executor {
                 conexion = true;
             else
                 conexion = false;
+            
             
         } catch (UnknownHostException ex) {
             Logger.getLogger(Variamos.class.getName()).log(Level.SEVERE, null, ex);

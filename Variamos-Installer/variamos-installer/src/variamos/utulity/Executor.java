@@ -16,7 +16,7 @@ import variamos.Variamos;
 public class Executor {
     
     String ruteVariamos = "";
-    public boolean conexion, conexionSolverWindows;
+    public boolean conexion, conexionSolverWindowsIOs;
     
     public void Executor(String ruteVariamos){
         this.ruteVariamos = ruteVariamos;
@@ -32,9 +32,9 @@ public class Executor {
             //Downloading solver
             if(configuration.solverDl != null){
                 if(installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName))
-                    conexionSolverWindows = true;
+                    conexionSolverWindowsIOs = true;
                 else
-                    conexionSolverWindows = false;
+                    conexionSolverWindowsIOs = false;
             }
             installer.installSolver(configuration.operativeSystem, configuration.solverName);
             

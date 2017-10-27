@@ -94,8 +94,8 @@ public class Installer extends javax.swing.JFrame {
                 exe.Executor(variamosRuteTxt.getText());
                 exe.executorCode();
                 
-                if(System.getProperty("os.name").contains("Windows")){
-                    if(!exe.conexionSolverWindows){
+                if(!System.getProperty("os.name").contains("Linux")){
+                    if(!exe.conexionSolverWindowsIOs){
                         JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar el solver");
                         downloadLbl.setText("Descarga y configuración fallida");
                         return;

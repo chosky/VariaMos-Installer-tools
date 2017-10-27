@@ -7,10 +7,11 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
- * @author Chosky
+ * @author José David Henao Ocampo - Monitor EDS
  */
 public class Inicio extends javax.swing.JFrame {
 

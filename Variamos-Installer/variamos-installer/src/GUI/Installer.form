@@ -26,14 +26,6 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -46,7 +38,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="downloadLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="variamosRuteTxt" min="-2" pref="290" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -56,6 +47,14 @@
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="variamosTitle" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="cancelBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="nextBtn" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -77,9 +76,7 @@
                   <Component id="variamosRuteTxt" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="downloadLbl" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="installBtn" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -109,22 +106,22 @@
     </Component>
     <Component class="javax.swing.JButton" name="nextBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="siguiente"/>
+        <Property name="text" type="java.lang.String" value="SIGUIENTE"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="backBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="atras"/>
+        <Property name="text" type="java.lang.String" value="ATRAS"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="cancelBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="cancelar"/>
+        <Property name="text" type="java.lang.String" value="CANCELAR"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="installBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="instalar"/>
+        <Property name="text" type="java.lang.String" value="INSTALAR"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -168,20 +165,9 @@
     </Component>
     <Component class="javax.swing.JTextField" name="variamosRuteTxt">
     </Component>
-    <Component class="javax.swing.JLabel" name="downloadLbl">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="2"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="cc" green="cc" red="cc" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Descargando y configurando..."/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="searchBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
+        <Property name="text" type="java.lang.String" value="BUSCAR"/>
       </Properties>
     </Component>
   </SubComponents>

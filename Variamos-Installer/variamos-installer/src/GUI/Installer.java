@@ -4,8 +4,14 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
+import variamos.utulity.Configuration;
 
 /**
  *
@@ -40,7 +46,17 @@ public class Installer extends javax.swing.JFrame {
         installBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                installBtnActionPerformed(ae);
+                try {
+                    installBtnActionPerformed(ae);
+                } catch (SAXException ex) {
+                    Logger.getLogger(Installer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Installer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ParserConfigurationException ex) {
+                    Logger.getLogger(Installer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Installer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -81,39 +97,63 @@ public class Installer extends javax.swing.JFrame {
         this.dispose();
    }
     
-    private void installBtnActionPerformed(ActionEvent ae){
-        variamos.utulity.Executor exe = new  variamos.utulity.Executor();
-        downloadLbl.setForeground(Color.GRAY);
-        downloadLbl.setText("Descargando y configurando...");
-        if (variamosRuteTxt.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "¡Ingresa una ruta!");
-        } else {
-            File file = new File(variamosRuteTxt.getText());
-            if (file.exists()){
-                downloadLbl.setForeground(Color.red);
-                exe.Executor(variamosRuteTxt.getText());
-                exe.executorCode();
+    private void installBtnActionPerformed(ActionEvent ae) throws SAXException, IOException, ParserConfigurationException, InterruptedException{
+        //Loading installation configuration
+        Configuration configuration = new Configuration();
+        configuration.loadConfigurationFile();
+        variamos.utulity.Installer installer = new variamos.utulity.Installer();
+        Object[] options = {"REINTENTAR", "CANCELAR"};
+        Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
+        
+        int cont = 0;
+        int option;
+        //Downloading solver
+        if(configuration.solverDl != null){
+            while(!installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
+                if(cont >= 3){
+                    option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, optionsWithManualDownload[0]);
+                } else {
+                    option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                }
+                if(option == 0){
+                    ++cont;
+                    continue;
+                } else if(option == 2) {
+                    configuration.solverDl = JOptionPane.showInputDialog("Dame la ruta del instalador del solver");
+                }
+                else break;
                 
-                if(!System.getProperty("os.name").contains("Linux")){
-                    if(!exe.conexionSolverWindowsIOs){
-                        JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar el solver");
-                        downloadLbl.setText("Descarga y configuración fallida");
-                        return;
-                    }
-                }
-                if(!exe.conexion){
-                    JOptionPane.showMessageDialog(this, "No se logró hacer conexion para descagar variamos");
-                    downloadLbl.setText("Descarga y configuración fallida");
-                    return;
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "¡El directorio no existe!");
             }
-            downloadLbl.setForeground(Color.green);
-            downloadLbl.setText("Descarga y configuración exitosa!!");
-            nextBtn.setEnabled(true);
-            installBtn.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Solver descargado correctamente.");
         }
+        installer.installSolver(configuration.operativeSystem, configuration.solverName);
+        
+        //Configure environment variables
+        installer.configureEnvironmentVariables(configuration.operativeSystem);
+        
+        //Downloading VariaMos 
+        cont = 0;
+        while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, variamosRuteTxt.getText())) {
+            if(cont >= 3){
+                option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, optionsWithManualDownload[0]);
+            } else {
+                option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            }
+            if(option == 0){
+                ++cont;
+                continue;
+            } else if(option == 2) {
+                 configuration.solverDl = JOptionPane.showInputDialog("Dame la ruta de VariaMos");
+            }
+            else break;
+        }
+        JOptionPane.showMessageDialog(this, "VariaMos descargado correctamente.");
+        nextBtn.setEnabled(true);
+        installBtn.setEnabled(false);
     }
     
     private void searchBtnActionPerformed(ActionEvent ae){
@@ -152,7 +192,6 @@ public class Installer extends javax.swing.JFrame {
         aproveChBtn = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         variamosRuteTxt = new javax.swing.JTextField();
-        downloadLbl = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -160,13 +199,13 @@ public class Installer extends javax.swing.JFrame {
         variamosTitle.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 36)); // NOI18N
         variamosTitle.setText("VariaMos Installer");
 
-        nextBtn.setText("siguiente");
+        nextBtn.setText("SIGUIENTE");
 
-        backBtn.setText("atras");
+        backBtn.setText("ATRAS");
 
-        cancelBtn.setText("cancelar");
+        cancelBtn.setText("CANCELAR");
 
-        installBtn.setText("instalar");
+        installBtn.setText("INSTALAR");
 
         jLabel1.setText("Se instalarán los siguientes paquetes: ");
 
@@ -181,11 +220,7 @@ public class Installer extends javax.swing.JFrame {
 
         jLabel3.setText("Dame la ruta donde deseas VariaMos :");
 
-        downloadLbl.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
-        downloadLbl.setForeground(new java.awt.Color(204, 204, 204));
-        downloadLbl.setText("Descargando y configurando...");
-
-        searchBtn.setText("Buscar");
+        searchBtn.setText("BUSCAR");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,13 +229,6 @@ public class Installer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 174, Short.MAX_VALUE)
-                        .addComponent(cancelBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(backBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,13 +240,19 @@ public class Installer extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(downloadLbl)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBtn)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(variamosTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(variamosTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cancelBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(backBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nextBtn)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -236,9 +270,7 @@ public class Installer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn))
-                .addGap(18, 18, 18)
-                .addComponent(downloadLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(installBtn)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,7 +290,6 @@ public class Installer extends javax.swing.JFrame {
     private javax.swing.JCheckBox aproveChBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JLabel downloadLbl;
     private javax.swing.JButton installBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

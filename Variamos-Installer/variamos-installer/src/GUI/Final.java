@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 public class Final extends javax.swing.JFrame {
     
     String variamosRute;
-    
     public Final(String variamosRute) {
         initComponents();
         this.variamosRute = variamosRute;
+        directAccessLauncher.setSelected(true);
         finishBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -33,7 +33,7 @@ public class Final extends javax.swing.JFrame {
     private void finishBtnActionPerformed(ActionEvent ae) throws IOException {
         variamos.utulity.Installer inst = new variamos.utulity.Installer();
         variamos.utulity.Configuration conf = new variamos.utulity.Configuration();
-        directAccessLauncher.setEnabled(true);
+        
         if (directAccessLauncher.isSelected()) {
             if (executeVariamos.isSelected()) {
                 if(conf.operativeSystem.contains("Windows")) {

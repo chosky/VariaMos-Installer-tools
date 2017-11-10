@@ -1,14 +1,18 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 import variamos.utulity.Configuration;
@@ -85,7 +89,12 @@ public class Installer extends javax.swing.JFrame {
     
     private void aproveChBtnActionPerformed(ActionEvent ae){
         if(aproveChBtn.isSelected()){
-            installBtn.setEnabled(true);
+            if(variamosRuteTxt.getText().equals("") || variamosRuteTxt.getText().equals(" ")) {
+                JOptionPane.showMessageDialog(this, "Ingrese una ruta!!");
+                installBtn.setEnabled(false);
+            } else { 
+                installBtn.setEnabled(true);
+            }
         } else {
             installBtn.setEnabled(false);
         }
@@ -102,43 +111,66 @@ public class Installer extends javax.swing.JFrame {
         Configuration configuration = new Configuration();
         configuration.loadConfigurationFile();
         variamos.utulity.Installer installer = new variamos.utulity.Installer();
+        
+        //Installing solver
+        installSolver(configuration, installer);
+        
+        //Configure environment variables
+        installer.configureEnvironmentVariables(configuration.operativeSystem);
+        
+        //Downloading VariaMos 
+        downloadVariaMos(configuration, installer);
+        
+        nextBtn.setEnabled(true);
+        installBtn.setEnabled(false);
+    }
+    
+    private void installSolver(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, InterruptedException{
         Object[] options = {"REINTENTAR", "CANCELAR"};
         Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
         
         int cont = 0;
         int option;
-        //Downloading solver
+
         if(configuration.solverDl != null){
             while(!installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
                 if(cont >= 3){
                     option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
-                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, optionsWithManualDownload[0]);
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsWithManualDownload, optionsWithManualDownload[0]);
                 } else {
                     option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
                                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 }
-                if(option == 0){
+                if(option == 0) {
                     ++cont;
                     continue;
                 } else if(option == 2) {
                     configuration.solverDl = JOptionPane.showInputDialog("Dame la ruta del instalador del solver");
                 }
                 else break;
-                
             }
             JOptionPane.showMessageDialog(this, "Solver descargado correctamente.");
         }
-        installer.installSolver(configuration.operativeSystem, configuration.solverName);
-        
-        //Configure environment variables
-        installer.configureEnvironmentVariables(configuration.operativeSystem);
-        
-        //Downloading VariaMos 
-        cont = 0;
+        downloadSolverTerminal(configuration, installer);
+    }
+    
+    private void downloadSolverTerminal(Configuration configuration, variamos.utulity.Installer installer) throws IOException, InterruptedException{
+        String sudoPass = "";
+        if(configuration.operativeSystem.contains("Linux") || configuration.operativeSystem.contains("Mac OS")){
+            sudoPass = requestPassword();
+        }
+        installer.installSolver(configuration.operativeSystem, configuration.solverName, sudoPass);
+    }
+    
+    private void downloadVariaMos(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
+        Object[] options = {"REINTENTAR", "CANCELAR"};
+        Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
+        int option;
+        int cont = 0;
         while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, variamosRuteTxt.getText())) {
             if(cont >= 3){
                 option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, optionsWithManualDownload[0]);
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsWithManualDownload, optionsWithManualDownload[0]);
             } else {
                 option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -152,8 +184,25 @@ public class Installer extends javax.swing.JFrame {
             else break;
         }
         JOptionPane.showMessageDialog(this, "VariaMos descargado correctamente.");
-        nextBtn.setEnabled(true);
-        installBtn.setEnabled(false);
+    }
+    
+    private String requestPassword(){
+        char[] passWord;
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Ingresa la contraseña de sudo:");
+        JPasswordField pass = new JPasswordField(10);
+        panel.add(label);
+        panel.add(pass);
+        String[] options = new String[]{"OK", "CANCELAR"};
+        int option = JOptionPane.showOptionDialog(null, panel, "Contraseña de sudo",
+                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                         null, options, options[0]);
+        if(option == 0) {
+            passWord = pass.getPassword();
+            return new String(passWord);
+        }else{
+            return "";
+        }
     }
     
     private void searchBtnActionPerformed(ActionEvent ae){

@@ -36,7 +36,7 @@ public class Executor {
                 else
                     conexionSolverWindowsIOs = false;
             }
-            installer.installSolver(configuration.operativeSystem, configuration.solverName);
+            //installer.installSolver(configuration.operativeSystem, configuration.solverName);
             
             //Configure environment variables
             installer.configureEnvironmentVariables(configuration.operativeSystem);

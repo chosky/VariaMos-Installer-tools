@@ -151,18 +151,27 @@ public class Installer extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(this, "Solver descargado correctamente.");
         }
-        downloadSolverTerminal(configuration, installer);
+        if(!downloadSolverTerminal(configuration, installer))
+            JOptionPane.showMessageDialog(this, "No se instalo el solver. \n Procedo a descargar variamos");
     }
     
-    private void downloadSolverTerminal(Configuration configuration, variamos.utulity.Installer installer) throws IOException, InterruptedException{
-        String sudoPass = "";
+    private boolean downloadSolverTerminal(Configuration configuration, variamos.utulity.Installer installer) throws IOException, InterruptedException{
+        String sudoPass = "";       
+        int option;
+        Object[] options = {"REINTENTAR", "CANCELAR"};
         if(configuration.operativeSystem.contains("Linux") || configuration.operativeSystem.contains("Mac OS")){
             sudoPass = requestPassword();
         }
         while(!installer.installSolver(configuration.operativeSystem, configuration.solverName, sudoPass)){
-            JOptionPane.showMessageDialog(this, "Contraseña de sudo erronea");
-            sudoPass = requestPassword();
+            option = JOptionPane.showOptionDialog(this, "Contraseña de sudo erronea", "PELIGRO!!", 
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if(option == 0){
+                sudoPass = requestPassword();
+            } else {
+                return false;
+            }
         }
+        return true;
     }
     
     private void downloadVariaMos(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{

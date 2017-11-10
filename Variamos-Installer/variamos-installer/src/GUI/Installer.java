@@ -159,7 +159,10 @@ public class Installer extends javax.swing.JFrame {
         if(configuration.operativeSystem.contains("Linux") || configuration.operativeSystem.contains("Mac OS")){
             sudoPass = requestPassword();
         }
-        installer.installSolver(configuration.operativeSystem, configuration.solverName, sudoPass);
+        while(!installer.installSolver(configuration.operativeSystem, configuration.solverName, sudoPass)){
+            JOptionPane.showMessageDialog(this, "Contraseña de sudo erronea");
+            sudoPass = requestPassword();
+        }
     }
     
     private void downloadVariaMos(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{

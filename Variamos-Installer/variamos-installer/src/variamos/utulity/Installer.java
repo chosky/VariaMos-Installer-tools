@@ -83,7 +83,7 @@ public class Installer {
         }
     }
     
-    public void installSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
+    public boolean installSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
         Process process = null;
         System.out.println(operativeSystem + " " + solverName);
         if (operativeSystem.contains("Windows")) {
@@ -91,33 +91,33 @@ public class Installer {
             process = Runtime.getRuntime().exec(cmd);
             process.waitFor();
         } else if (operativeSystem.contains("Linux")) {
-            runCommand("echo " + sudoPass + "| sudo -u root --stdin apt-add-repository ppa:swi-prolog/stable");
+            if(!sudoTest(sudoPass)) return false;
+            runCommand("echo " + sudoPass + "| sudo -S apt-add-repository ppa:swi-prolog/stable");
             runCommand("echo " + sudoPass + "| sudo -S apt-get update");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog-java");
         } else if (operativeSystem.contains("Mac OS")) {
+            if(!sudoTest(sudoPass)) return false;
             runCommand("echo " + sudoPass + "| sudo -S hdiutil attach " + solverName);
             runCommand("echo " + sudoPass + "| sudo -S cp -R /Volumes/SWI-Prolog/SWI-Prolog.app /Applications");
             runCommand("hdiutil unmount /Volumes/SWI-Prolog/");
             runCommand("echo " + sudoPass + "| sudo -S cp /Applications/SWI-Prolog.app/Contents/swipl/lib/x86_64-darwin14.3.0/* /usr/local/lib/");
         }
+        return true;
     }
     
     public void runCommand(String cmd) throws IOException, InterruptedException {
         String[] cmdComplete = {"/bin/bash", "-c", cmd};
-        System.out.println(cmd.substring(cmd.indexOf("|"), cmd.length()));
+        System.out.println(cmd.substring(cmd.indexOf("|")+2, cmd.length()));
         String s;
         Process process = Runtime.getRuntime().exec(cmdComplete);
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
         while ((s = br.readLine()) != null) {
-            //GUI.Installer.printTxt.setText(s + "\n");
             System.out.println(s);
         }
         process.waitFor();
-        //GUI.Installer.printTxt.setText("exit: " + process.exitValue() + "\n");
         System.out.println("exit: " + process.exitValue());
         process.destroy();
-        //GUI.Installer.printTxt.setText("Script executed successfully\n");
         System.out.println("Script executed successfully");
     }
      
@@ -142,5 +142,17 @@ public class Installer {
             process.waitFor();
         }
     }
- 
+    
+    public boolean sudoTest(String pass) throws IOException, InterruptedException{
+        String[] cmdComplete = {"/bin/bash", "-c", "echo " + pass + "| sudo -S ls"};
+        String s;
+        Process process = Runtime.getRuntime().exec(cmdComplete);
+        process.waitFor();
+        if(process.exitValue() == 1){
+            process.destroy();
+            return false;
+        }
+        process.destroy();
+        return true;
+    }
 }

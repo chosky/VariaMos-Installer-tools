@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,21 +40,13 @@ public class Final extends javax.swing.JFrame {
                 if(conf.operativeSystem.contains("Windows")) {
                     inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, true);
                 } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
-                    try {
-                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Desktop", variamosRute, true);
-                    } catch (IOException ex) {
-                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Escritorio", variamosRute, true);
-                    }
+                    generateLauncher(inst, conf, true);
                 }
             } else {
                 if(conf.operativeSystem.contains("Windows")) {
                     inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, false);
                 } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
-                    try {
-                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Desktop", variamosRute, false);
-                    } catch (IOException ex) {
-                        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/Escritorio", variamosRute, false);
-                    }
+                    generateLauncher(inst, conf, false);
                 }
             }
             inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, false);
@@ -67,6 +60,26 @@ public class Final extends javax.swing.JFrame {
         this.dispose();
     }
     
+    private void generateLauncher(variamos.utulity.Installer inst, variamos.utulity.Configuration conf, boolean executeVariamos) throws IOException {
+        String idioma = Locale.getDefault().getLanguage();
+        String descarga = selectorIdioma(idioma);
+        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + descarga, variamosRute, executeVariamos);
+    }
+    
+    private String selectorIdioma(String idioma) {
+        switch(idioma) {
+            case "es":
+                System.out.println("Español");
+                return "Escritorio";
+            case "en":
+                System.out.println("Ingles");
+                return "Desktop";
+            case "fr":
+                System.out.println("Frances");
+                return "Bureau";
+        }
+        return "Escritorio";
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

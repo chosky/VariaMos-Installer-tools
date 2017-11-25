@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,9 +30,7 @@ public class Installer extends javax.swing.JFrame {
         nextBtn.setEnabled(false);
         installBtn.setEnabled(false);
         printTxt.setEditable(false);
-        
-        //printTxt.setText("\n");
-        //printTxt.setText("\n");
+        lblDownloadings.setText("");
         
         nextBtn.addActionListener(new ActionListener() {
             @Override
@@ -113,16 +112,24 @@ public class Installer extends javax.swing.JFrame {
         variamos.utulity.Installer installer = new variamos.utulity.Installer();
         
         //Installing solver
+        lblDownloadings.setForeground(Color.red);
+        lblDownloadings.setText("Descargando el solver...");
         installSolver(configuration, installer);
         
         //Configure environment variables
+        lblDownloadings.setForeground(Color.red);
+        lblDownloadings.setText("Configurando variables de ambiente...");
         installer.configureEnvironmentVariables(configuration.operativeSystem);
         
         //Downloading VariaMos 
+        lblDownloadings.setForeground(Color.red);
+        lblDownloadings.setText("Descargando VariaMos...");
         downloadVariaMos(configuration, installer);
         
         nextBtn.setEnabled(true);
         installBtn.setEnabled(false);
+        lblDownloadings.setForeground(Color.green);
+        lblDownloadings.setText("Configuraciones correctas!!");
     }
     
     private void installSolver(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, InterruptedException{
@@ -134,6 +141,8 @@ public class Installer extends javax.swing.JFrame {
 
         if(configuration.solverDl != null){
             while(!installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
+                lblDownloadings.setForeground(Color.red);
+                lblDownloadings.setText("Instalando el solver...");
                 if(cont >= 3){
                     option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
                                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsWithManualDownload, optionsWithManualDownload[0]);
@@ -180,6 +189,8 @@ public class Installer extends javax.swing.JFrame {
         int option;
         int cont = 0;
         while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, variamosRuteTxt.getText())) {
+            lblDownloadings.setForeground(Color.red);
+            lblDownloadings.setText("Instalando VariaMos...");
             if(cont >= 3){
                 option = JOptionPane.showOptionDialog(this, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsWithManualDownload, optionsWithManualDownload[0]);
@@ -254,6 +265,7 @@ public class Installer extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         variamosRuteTxt = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
+        lblDownloadings = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -272,7 +284,7 @@ public class Installer extends javax.swing.JFrame {
 
         printTxt.setColumns(20);
         printTxt.setRows(5);
-        printTxt.setText("SWI-Prolog 7.2.3\nVariamos 1.0.1.20");
+        printTxt.setText("SWI-Prolog 7.2.3\nVariamos 1.0.1.21");
         jScrollPane1.setViewportView(printTxt);
 
         jLabel2.setText("¿Está deacuerdo con instalar todo?");
@@ -297,15 +309,6 @@ public class Installer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(installBtn))
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(searchBtn)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(variamosTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -313,7 +316,17 @@ public class Installer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(backBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nextBtn)))
+                        .addComponent(nextBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDownloadings, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(searchBtn)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -331,7 +344,9 @@ public class Installer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDownloadings, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(installBtn)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -356,6 +371,7 @@ public class Installer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDownloadings;
     private javax.swing.JButton nextBtn;
     public javax.swing.JTextArea printTxt;
     private javax.swing.JButton searchBtn;

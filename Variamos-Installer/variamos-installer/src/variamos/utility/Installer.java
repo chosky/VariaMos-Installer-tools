@@ -1,4 +1,4 @@
-package variamos.utulity;
+package variamos.utility;
 
 import java.io.BufferedReader;
 import java.io.File;

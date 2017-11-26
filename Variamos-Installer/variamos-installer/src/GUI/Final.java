@@ -32,8 +32,8 @@ public class Final extends javax.swing.JFrame {
     }
    
     private void finishBtnActionPerformed(ActionEvent ae) throws IOException {
-        variamos.utulity.Installer inst = new variamos.utulity.Installer();
-        variamos.utulity.Configuration conf = new variamos.utulity.Configuration();
+        variamos.utility.Installer inst = new variamos.utility.Installer();
+        variamos.utility.Configuration conf = new variamos.utility.Configuration();
         
         if (directAccessLauncher.isSelected()) {
             if (executeVariamos.isSelected()) {
@@ -60,7 +60,7 @@ public class Final extends javax.swing.JFrame {
         this.dispose();
     }
     
-    private void generateLauncher(variamos.utulity.Installer inst, variamos.utulity.Configuration conf, boolean executeVariamos) throws IOException {
+    private void generateLauncher(variamos.utility.Installer inst, variamos.utility.Configuration conf, boolean executeVariamos) throws IOException {
         String idioma = Locale.getDefault().getLanguage();
         String descarga = selectorIdioma(idioma);
         inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + descarga, variamosRute, executeVariamos);

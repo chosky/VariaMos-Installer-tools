@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-import variamos.utulity.Configuration;
+import variamos.utility.Configuration;
 
 /**
  *
@@ -109,7 +109,7 @@ public class Installer extends javax.swing.JFrame {
         //Loading installation configuration
         Configuration configuration = new Configuration();
         configuration.loadConfigurationFile();
-        variamos.utulity.Installer installer = new variamos.utulity.Installer();
+        variamos.utility.Installer installer = new variamos.utility.Installer();
         
         //Installing solver
         lblDownloadings.setForeground(Color.red);
@@ -132,7 +132,7 @@ public class Installer extends javax.swing.JFrame {
         lblDownloadings.setText("Configuraciones correctas!!");
     }
     
-    private void installSolver(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, InterruptedException{
+    private void installSolver(Configuration configuration, variamos.utility.Installer installer) throws FileNotFoundException, IOException, InterruptedException{
         Object[] options = {"REINTENTAR", "CANCELAR"};
         Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
         
@@ -164,7 +164,7 @@ public class Installer extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se instalo el solver. \n Procedo a descargar variamos");
     }
     
-    private boolean downloadSolverTerminal(Configuration configuration, variamos.utulity.Installer installer) throws IOException, InterruptedException{
+    private boolean downloadSolverTerminal(Configuration configuration, variamos.utility.Installer installer) throws IOException, InterruptedException{
         String sudoPass = "";       
         int option;
         Object[] options = {"REINTENTAR", "CANCELAR"};
@@ -183,7 +183,7 @@ public class Installer extends javax.swing.JFrame {
         return true;
     }
     
-    private void downloadVariaMos(Configuration configuration, variamos.utulity.Installer installer) throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
+    private void downloadVariaMos(Configuration configuration, variamos.utility.Installer installer) throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
         Object[] options = {"REINTENTAR", "CANCELAR"};
         Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
         int option;

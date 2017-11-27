@@ -18,13 +18,13 @@ declare javaArchitecture;
 declare pcArchitecture;
 
 # Installing Homebrew to keep the aplications up-to-date
-which -s brew
-if [[ $? != 0 ]]; then
-    echo "Installing Homebrew for keep Java and SWI-Proog actualiced"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-else 
-    brew update
-fi
+# which -s brew
+# if [[ $? != 0 ]]; then
+#     echo "Installing Homebrew for keep Java and SWI-Proog actualiced"
+#     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# else 
+#     brew update
+# fi
 
 # Check if Java is installed or install
 if [ -a /usr/bin/java ]; then 
@@ -48,28 +48,46 @@ if [ -a /usr/bin/java ]; then
 	    if [$java == "openjdk"]; then
 		echo FALTA PURGAR OPENJDK POR NO SER DE LA MISMA ARQUITECTURA
 	    else
-		echo FALTA PURGAR JAVA POR NO SER DE LA MISMA ARQUITECTURA
+		sudo rm -rf /Library/Java/JavaVirtualMachines/jdk*
+		sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+		sudo rm -fr /Library/PreferencesPanes/JavaControlPanel.prefPane
+		sudo rm -fr ~/Library/Application\ Support/Java
 	    fi    
-	    echo INSTALAR JAVA(ULTIMA VERSION CON ARQUITECTURA CORRECTA) CON RESPECTO A LA ARQUITECTURA
+	    
+	    cd ~/Downloads
+	    curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-macosx-x64.dmg > jdk-8u121-macosx-x64.dmg
+	    hdiutil attach jdk-8u121-macosx-x64.dmg
+	    sudo installer -pkg /Volumes/JDK\ 8\ Update\ 121/JDK\ 8\ Update\ 121.pkg -target /
+	    diskutil umount /Volumes/JDK\ 8\ Update\ 121
+	    rm jdk-8u121-macosx-x64.dmg	    
+
 	fi
     else
 	if [$java == "openjdk"]; then
 	    echo FALTA PURGAR OPENJDK POR SER VERSION VIEJA
 	else
-	    echo FALTA PURGAR JAVA POR SER VERSION VIEJA
-	fi    
-	echo INSTALAR JAVA(ULTIMA VERSION) CON RESPECTO A LA ARQUITECTURA
-    fi
+	    sudo rm -rf /Library/Java/JavaVirtualMachines/jdk*
+	    sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+	    sudo rm -fr /Library/PreferencesPanes/JavaControlPanel.prefPane
+	    sudo rm -fr ~/Library/Application\ Support/Java
+	fi
+	# brew cask install java
+	cd ~/Downloads
+	curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-macosx-x64.dmg > jdk-8u121-macosx-x64.dmg
+	hdiutil attach jdk-8u121-macosx-x64.dmg
+	sudo installer -pkg /Volumes/JDK\ 8\ Update\ 121/JDK\ 8\ Update\ 121.pkg -target /
+	diskutil umount /Volumes/JDK\ 8\ Update\ 121
+	rm jdk-8u121-macosx-x64.dmg	    
+
+fi
 else
-    # no se si usar breo porque puede traer problemas o
-    # descargarlo directamente con curl RECORDAR QUE ESTO DEPENDE DE LA ARQUITECTURA
-    # cd ~/Downloads
-    # curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-macosx-x64.dmg > jdk-8u121-macosx-x64.dmg
-    # hdiutil attach jdk-8u121-macosx-x64.dmg
-    # sudo installer -pkg /Volumes/JDK\ 8\ Update\ 121/JDK\ 8\ Update\ 121.pkg -target /
-    # diskutil umount /Volumes/JDK\ 8\ Update\ 121
-    # rm jdk-8u121-macosx-x64.dmg
-    brew cask install java
+    # brew cask install java
+    cd ~/Downloads
+    curl -v -j -k -L -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-macosx-x64.dmg > jdk-8u121-macosx-x64.dmg
+    hdiutil attach jdk-8u121-macosx-x64.dmg
+    sudo installer -pkg /Volumes/JDK\ 8\ Update\ 121/JDK\ 8\ Update\ 121.pkg -target /
+    diskutil umount /Volumes/JDK\ 8\ Update\ 121
+    rm jdk-8u121-macosx-x64.dmg	    
 fi
 
 echo "The last step is to download VariaMos in this link (PLEASE DOWNLOAD THE LAST VERSION): "

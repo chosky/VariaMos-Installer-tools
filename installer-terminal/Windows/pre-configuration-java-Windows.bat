@@ -7,43 +7,48 @@
 ::          with its necesary dependecies and configuration of enviroment variables
 ::          for Windows.
 ::
-:: Modifications:
+:: Modifications: 1. 26/11/17: Change all the code, the new code only verify and configure Java
 :: 
 @ECHO off
 
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
+
+SET javaArchitecture
 
 FOR /f %%j in ("java.exe") DO (
     SET JAVA_HOME=%%~dp$PATH:j
 )
 
 IF %JAVA_HOME%.==. (
-	ECHO "Download and install Java"
-	IF %OS%==32BIT (
-		START download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-windows-i586.exe
-		PAUSE
-	) ELSE (
-		START download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-windows-x64.exe
-		PAUSE
-	)
+	GOTO installJava	
 ) ELSE (
-	ECHO "Java is installed"
+	
+	java -d64 -version >nul 2>&1
+	IF errorlevel 1 GOTO maybe32bit
+	SET javaArchitecture =  64BIT
+	GOTO verifyJavaArchitecture
+	
+	:maybe32bit
+	where java >nul 2>&1
+	SET javaArchitecture = 32BIT 
+	GOTO verifyJavaArchitecture
+	
+	:verifyJavaArchitecture
+	IF NOT %javaArchitecture%==%OS% (
+		wmic product where "name like 'Java%%'" call uninstall /nointeractive
+		GOTO installJava
+	)
 )
-PAUSE
 
-IF EXIST "C:\Program Files\swipl" (
-	ECHO "SWI-Prolog is installed"
+:installJava
+ECHO "Download and install Java"
+IF %OS%==32BIT (
+	START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-i586.exe
+	PAUSE
 ) ELSE (
-ECHO "Download and install SWI-Prolog"
-	IF %OS%==32BIT (
-		START www.swi-prolog.org/download/stable/bin/swipl-w32-723.exe
-		PAUSE
-	) ELSE (
-		START www.swi-prolog.org/download/stable/bin/swipl-w64-723.exe
-		PAUSE
-	)
+	START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-x64.exe
+	PAUSE
 )
-PAUSE
 
 ECHO "The last step is to download VariaMos in this link (PLEASE DOWNLOAD THE LAST VERSION): "
 ECHO "https://variamos.com/home/variamos/downloads/" 

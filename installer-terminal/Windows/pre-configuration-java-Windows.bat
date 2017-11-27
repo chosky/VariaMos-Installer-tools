@@ -13,42 +13,51 @@
 
 reg Query "HKLM\Hardware\Description\System\CentralProcessor\0" | find /i "x86" > NUL && set OS=32BIT || set OS=64BIT
 
-SET javaArchitecture
-
 FOR /f %%j in ("java.exe") DO (
     SET JAVA_HOME=%%~dp$PATH:j
 )
 
-IF %JAVA_HOME%.==. (
-	GOTO installJava	
+java -d64 -version >nul 2>&1
+IF errorlevel 1 (
+	WHERE java >nul 2>&1
+	SET javaArchitecture=32BIT
 ) ELSE (
-	
-	java -d64 -version >nul 2>&1
-	IF errorlevel 1 GOTO maybe32bit
-	SET javaArchitecture =  64BIT
-	GOTO verifyJavaArchitecture
-	
-	:maybe32bit
-	where java >nul 2>&1
-	SET javaArchitecture = 32BIT 
-	GOTO verifyJavaArchitecture
-	
-	:verifyJavaArchitecture
-	IF NOT %javaArchitecture%==%OS% (
-		wmic product where "name like 'Java%%'" call uninstall /nointeractive
-		GOTO installJava
-	)
+	SET javaArchitecture=64BIT
 )
 
-:installJava
-ECHO "Download and install Java"
-IF %OS%==32BIT (
-	START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-i586.exe
-	PAUSE
+IF %JAVA_HOME%.==. (
+	ECHO "Download and install Java"
+	IF %OS%==32BIT (
+		START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-i586.exe
+		PAUSE
+	) ELSE (
+		START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-x64.exe
+		PAUSE
+	)
 ) ELSE (
-	START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-x64.exe
-	PAUSE
+	java -d64 -version >nul 2>&1
+	IF errorlevel 1 (
+		WHERE java >nul 2>&1
+		SET javaArchitecture=32BIT
+	) ELSE (
+		SET javaArchitecture=64BIT
+	)
+
+	IF NOT %javaArchitecture%==%OS% (
+	
+		wmic product where "name like 'Java%%'" call uninstall /nointeractive
+		
+		ECHO "Download and install Java"
+		IF %OS%==32BIT (
+			START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-i586.exe
+			PAUSE
+		) ELSE (
+			START download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-windows-x64.exe
+			PAUSE
+		)
+	)
 )
+PAUSE
 
 ECHO "The last step is to download VariaMos in this link (PLEASE DOWNLOAD THE LAST VERSION): "
 ECHO "https://variamos.com/home/variamos/downloads/" 

@@ -26,6 +26,14 @@ declare pcArchitecture;
 #     brew update
 # fi
 
+
+if uname -a 2>&1 | grep -q x86_64
+then
+    pcArchitecture="64"
+else
+    pcArchitecture="32"
+fi
+
 # Check if Java is installed or install
 if [ -a /usr/bin/java ]; then 
     if java -version 2>&1 | grep -q open

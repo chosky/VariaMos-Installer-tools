@@ -3,8 +3,8 @@
     <version>1.0.1.20</version>
     <variamos-dl>https://variamos.com/home/variamos-Last.jar</variamos-dl>
     <solver>
-        <Windowsx86>http://www.swi-prolog.org/download/stable/bin/swipl-w32-723.exe</Windowsx86>
-	<Windowsx64>http://www.swi-prolog.org/download/stable/bin/swipl-w64-723.exe</Windowsx64>
-	<OSX>http://www.swi-prolog.org/download/stable/bin/SWI-Prolog-7.2.3.dmg</OSX>
+        <Windowsx86>http://www.swi-prolog.org/download/stable/bin/swipl-w32-763.exe</Windowsx86>
+	<Windowsx64>http://www.swi-prolog.org/download/stable/bin/swipl-w64-763.exe</Windowsx64>
+	<OSX>http://www.swi-prolog.org/download/stable/bin/SWI-Prolog-7.6.3.dmg</OSX>
     </solver>
 </configuration>

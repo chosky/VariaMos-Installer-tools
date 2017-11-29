@@ -106,14 +106,14 @@ public class Installer extends javax.swing.JFrame {
    }
     
     private void installBtnActionPerformed(ActionEvent ae) throws SAXException, IOException, ParserConfigurationException, InterruptedException{
+        lblDownloadings.setForeground(Color.red);
+        lblDownloadings.setText("Descargando el solver...");
         //Loading installation configuration
         Configuration configuration = new Configuration();
         configuration.loadConfigurationFile();
         variamos.utility.Installer installer = new variamos.utility.Installer();
         
         //Installing solver
-        lblDownloadings.setForeground(Color.red);
-        lblDownloadings.setText("Descargando el solver...");
         installSolver(configuration, installer);
         
         //Configure environment variables

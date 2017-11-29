@@ -40,6 +40,7 @@ public class Installer {
         Process process = null;
         if (operativeSystem.contains("Windows")) {
             PrintWriter writer = new PrintWriter(ruteLauncher + "\\Variamos_Launcher.bat", "UTF-8");
+            writer.println("set CLASSPATH=.;C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\lib;%CLASSPATH%");
             writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
             writer.println("java -jar " + "\"" + ruteJar + "\\variamos.jar\"");
             writer.close();
@@ -60,7 +61,7 @@ public class Installer {
             writer.println("export SWI_HOME_DIR=/Applications/SWI-Prolog.app/Contents/swipl");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
             writer.println("export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin14.3.0/ -jar " + "\"" + ruteJar + "/variamos.jar\"");
+            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + ruteJar + "/variamos.jar\"");
             writer.close();
             if(execute)
                 process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
@@ -92,12 +93,19 @@ public class Installer {
             process.waitFor();
         } else if (operativeSystem.contains("Linux")) {
             if(!sudoTest(sudoPass)) return false;
+            runCommand("echo " + sudoPass + "| sudo -S apt-get update");
+            runCommand("echo " + sudoPass + "| sudo -S apt-get install default-jre");
             runCommand("echo " + sudoPass + "| sudo -S apt-add-repository ppa:swi-prolog/stable");
             runCommand("echo " + sudoPass + "| sudo -S apt-get update");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog-java");
         } else if (operativeSystem.contains("Mac OS")) {
             if(!sudoTest(sudoPass)) return false;
+            if(!preConfigurationOSX()) {
+                runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/");
+                runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/lib/");
+                runCommand("echo " + sudoPass + "| sudo export PATH=$PATH:/usr/local/lib/");
+            }
             runCommand("echo " + sudoPass + "| sudo -S hdiutil attach " + solverName);
             runCommand("echo " + sudoPass + "| sudo -S cp -R /Volumes/SWI-Prolog/SWI-Prolog.app /Applications");
             runCommand("hdiutil unmount /Volumes/SWI-Prolog/");
@@ -155,4 +163,18 @@ public class Installer {
         process.destroy();
         return true;
     }
+    
+    public boolean preConfigurationOSX() throws IOException, InterruptedException {
+        String[] cmdComplete = {"/bin/bash", "-c", "ls /usr/local/lib/"};
+        String s;
+        Process process = Runtime.getRuntime().exec(cmdComplete);
+        process.waitFor();
+        if(process.exitValue() == 1){
+            process.destroy();
+            return false;
+        }
+        process.destroy();
+        return true;
+    }
+    
 }

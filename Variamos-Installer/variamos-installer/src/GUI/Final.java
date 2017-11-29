@@ -73,6 +73,7 @@ public class Final extends javax.swing.JFrame {
         for(int i = 0; i < carpetasIdioma.length; ++i) {
             try {
                 inst.launchVariamos(conf.operativeSystem, descarga + System.getProperty("user.name") + "/" + carpetasIdioma[i], variamosRute, executeVariamos);
+                System.out.println("YA ESTA TODO CORRECTO, NO LE PRESTES ATENCION A ESOS ERRORES RAROS :) !!!!!");
             } catch (FileNotFoundException fnfe) {
                 System.err.println(fnfe);
                 System.out.println(carpetasIdioma[i]);

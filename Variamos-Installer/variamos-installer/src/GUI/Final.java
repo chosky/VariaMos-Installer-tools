@@ -64,20 +64,23 @@ public class Final extends javax.swing.JFrame {
     private void generateLauncher(variamos.utility.Installer inst, variamos.utility.Configuration conf, boolean executeVariamos) throws IOException, FileNotFoundException {
         String idioma = Locale.getDefault().getLanguage();
         String descarga = selectorIdioma(idioma);
-        System.out.println(idioma);
-        try {
-            inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + descarga, variamosRute, executeVariamos);
-        } catch (FileNotFoundException fnfe) {
-            System.err.println(fnfe);
-            System.out.println("FNFE");
-        } catch (IOException ioe) {
-            System.err.println(ioe);
-            System.out.println("IOE");
-        } catch (Exception e) {
-            System.err.println(e);
-            System.out.println("Rare");
-        }
         
+        String[] carpetasIdioma = {"Escritorio", "Desktop", "Bureau"};
+        
+        for(int i = 0; i < carpetasIdioma.length; ++i) {
+            try {
+                inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + carpetasIdioma[i], variamosRute, executeVariamos);
+            } catch (FileNotFoundException fnfe) {
+                System.err.println(fnfe);
+                System.out.println("FNFE");
+            } catch (IOException ioe) {
+                System.err.println(ioe);
+                System.out.println("IOE");
+            } catch (Exception e) {
+                System.err.println(e);
+                System.out.println("Rare");
+            }
+        }
     }
     
     private String selectorIdioma(String idioma) {

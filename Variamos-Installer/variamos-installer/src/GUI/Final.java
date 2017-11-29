@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -60,10 +61,23 @@ public class Final extends javax.swing.JFrame {
         this.dispose();
     }
     
-    private void generateLauncher(variamos.utility.Installer inst, variamos.utility.Configuration conf, boolean executeVariamos) throws IOException {
+    private void generateLauncher(variamos.utility.Installer inst, variamos.utility.Configuration conf, boolean executeVariamos) throws IOException, FileNotFoundException {
         String idioma = Locale.getDefault().getLanguage();
         String descarga = selectorIdioma(idioma);
-        inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + descarga, variamosRute, executeVariamos);
+        System.out.println(idioma);
+        try {
+            inst.launchVariamos(conf.operativeSystem, "/home/" + System.getProperty("user.name") + "/" + descarga, variamosRute, executeVariamos);
+        } catch (FileNotFoundException fnfe) {
+            System.err.println(fnfe);
+            System.out.println("FNFE");
+        } catch (IOException ioe) {
+            System.err.println(ioe);
+            System.out.println("IOE");
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Rare");
+        }
+        
     }
     
     private String selectorIdioma(String idioma) {

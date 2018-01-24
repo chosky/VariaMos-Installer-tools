@@ -14,7 +14,8 @@ import java.nio.file.StandardCopyOption;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Installer {
     
@@ -30,7 +31,7 @@ public class Installer {
             return true;
 
         } catch (Exception e) {
-            System.out.println("No se logró hacer conexion");
+            System.out.println("Variamos hasn't been downloaded.");
             System.out.println(e);
             return false;
         }
@@ -78,7 +79,7 @@ public class Installer {
             Files.copy(_url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (Exception e){
-            System.out.println("No se pudo hacer conexion.");
+            System.out.println("SWI-Prolog hasn't been downloaded.");
             System.out.println(e);
             return false;
         }
@@ -153,28 +154,26 @@ public class Installer {
     
     public boolean sudoTest(String pass) throws IOException, InterruptedException{
         String[] cmdComplete = {"/bin/bash", "-c", "echo " + pass + "| sudo -S ls"};
-        String s;
         Process process = Runtime.getRuntime().exec(cmdComplete);
         process.waitFor();
-        if(process.exitValue() == 1){
+        if(process.exitValue() == 0){
             process.destroy();
-            return false;
+            return true;
         }
         process.destroy();
-        return true;
+        return false;
     }
     
     public boolean preConfigurationOSX() throws IOException, InterruptedException {
         String[] cmdComplete = {"/bin/bash", "-c", "ls /usr/local/lib/"};
-        String s;
         Process process = Runtime.getRuntime().exec(cmdComplete);
         process.waitFor();
-        if(process.exitValue() == 1){
+        if(process.exitValue() == 0){
             process.destroy();
-            return false;
+            return true;
         }
         process.destroy();
-        return true;
+        return false;
     }
     
 }

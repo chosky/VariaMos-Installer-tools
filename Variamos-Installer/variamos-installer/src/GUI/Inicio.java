@@ -1,17 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Inicio extends javax.swing.JFrame {
 

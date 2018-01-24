@@ -42,7 +42,7 @@ public class Executor {
             installer.configureEnvironmentVariables(configuration.operativeSystem);
             
             //Downloading VariaMos 
-            if(installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, ruteVariamos)) 
+            if(installer.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, ruteVariamos)) 
                 conexion = true;
             else
                 conexion = false;

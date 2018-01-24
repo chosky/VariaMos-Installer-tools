@@ -20,7 +20,8 @@ import variamos.utility.Configuration;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Installer extends javax.swing.JFrame {
     
@@ -188,7 +189,7 @@ public class Installer extends javax.swing.JFrame {
         Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
         int option;
         int cont = 0;
-        while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.version, variamosRuteTxt.getText())) {
+        while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, variamosRuteTxt.getText())) {
             lblDownloadings.setForeground(Color.red);
             lblDownloadings.setText("Instalando VariaMos...");
             if(cont >= 3){

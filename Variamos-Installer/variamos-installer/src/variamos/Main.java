@@ -2,13 +2,14 @@ package variamos;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
- * El back-end fue apollado del trabajo de KEVIN
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
+ * El back-end fue apoyado del trabajo de KEVIN
  */
 public class Main {
     
     public static void main(String[] args) {
-        GUI.Inicio ini = new GUI.Inicio();
-        ini.setVisible(true);
+        GUI.Inicio ventanaInicio = new GUI.Inicio();
+        ventanaInicio.setVisible(true);
     }
 }

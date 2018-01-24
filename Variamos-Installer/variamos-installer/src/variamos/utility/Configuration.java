@@ -13,10 +13,11 @@ import org.xml.sax.SAXException;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Configuration {
-    public String version, variamosDl, solverDl, operativeSystem, operativeSystemVersion, solverName, javaVersion;
+    public String variamosVersion, variamosDl, solverVersion, solverDl, operativeSystem, operativeSystemVersion, solverName, javaVersion;
     
     public Configuration(){
         javaVersion = System.getProperty("java.version");
@@ -48,7 +49,8 @@ public class Configuration {
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(file);
-        version = document.getElementsByTagName("version").item(0).getTextContent();
+        variamosVersion = document.getElementsByTagName("variamos-version").item(0).getTextContent();
+        solverVersion = document.getElementsByTagName("solver-version").item(0).getTextContent();
         variamosDl = document.getElementsByTagName("variamos-dl").item(0).getTextContent();
         if (operativeSystem.contains("Windows")) {
             if (operativeSystemVersion.equals("64")) {

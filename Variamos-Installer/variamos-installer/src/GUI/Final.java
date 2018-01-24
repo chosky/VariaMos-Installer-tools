@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author José David Henao Ocampo - Monitor EDS
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Final extends javax.swing.JFrame {
     
@@ -122,7 +123,7 @@ public class Final extends javax.swing.JFrame {
         variamosTitle.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 36)); // NOI18N
         variamosTitle.setText("VariaMos Installer");
 
-        jLabel3.setText("¿Desea agregar un acceso directo del launcheren el escritorio?");
+        jLabel3.setText("¿Desea agregar un acceso directo del launcher en el escritorio?");
 
         directAccessLauncher.setText("Si");
 

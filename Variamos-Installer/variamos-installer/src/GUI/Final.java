@@ -1,10 +1,9 @@
 package GUI;
 
+import controller.GUIFinalController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +17,9 @@ public class Final extends javax.swing.JFrame {
     String variamosRute;
     public Final(String variamosRute) {
         initComponents();
+        this.setTitle("Instalador de VariaMos");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         this.variamosRute = variamosRute;
         directAccessLauncher.setSelected(true);
         finishBtn.addActionListener(new ActionListener() {
@@ -34,107 +36,56 @@ public class Final extends javax.swing.JFrame {
     }
    
     private void finishBtnActionPerformed(ActionEvent ae) throws IOException {
-        variamos.utility.Installer inst = new variamos.utility.Installer();
-        variamos.utility.Configuration conf = new variamos.utility.Configuration();
-        
+        GUIFinalController finalControler = new GUIFinalController();
         if (directAccessLauncher.isSelected()) {
             if (executeVariamos.isSelected()) {
-                if(conf.operativeSystem.contains("Windows")) {
-                    inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, true);
-                } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
-                    generateLauncher(inst, conf, true);
-                }
+                finalControler.opcionesDeLauncherYFinal(true, true, System.getProperty("os.name"), variamosRute);
             } else {
-                if(conf.operativeSystem.contains("Windows")) {
-                    inst.launchVariamos(conf.operativeSystem, "C:\\Users\\" + System.getProperty("user.name") + "\\Desktop", variamosRute, false);
-                } else if (conf.operativeSystem.contains("Linux") || conf.operativeSystem.contains("Mac OS")) {
-                    generateLauncher(inst, conf, false);
-                }
+                finalControler.opcionesDeLauncherYFinal(true, false, System.getProperty("os.name"), variamosRute);
             }
-            inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, false);
         } else {
             if (executeVariamos.isSelected()) {
-                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, true);
+                finalControler.opcionesDeLauncherYFinal(false, true, System.getProperty("os.name"), variamosRute);
             } else {
-                inst.launchVariamos(conf.operativeSystem, variamosRute, variamosRute, false);
+                finalControler.opcionesDeLauncherYFinal(false, false, System.getProperty("os.name"), variamosRute);
             }
         }
         this.dispose();
     }
     
-    private void generateLauncher(variamos.utility.Installer inst, variamos.utility.Configuration conf, boolean executeVariamos) throws IOException, FileNotFoundException {
-        String idioma = Locale.getDefault().getLanguage();
-        //String descarga = selectorIdioma(idioma);
-        String descarga = "";
-        String[] carpetasIdioma = {"Escritorio", "Desktop", "Bureau"};
-        
-        if(conf.operativeSystem.contains("Linux")) descarga = "/home/";
-        else if(conf.operativeSystem.contains("Mac OS")) descarga = "/Users/";
-
-        for(int i = 0; i < carpetasIdioma.length; ++i) {
-            try {
-                inst.launchVariamos(conf.operativeSystem, descarga + System.getProperty("user.name") + "/" + carpetasIdioma[i], variamosRute, executeVariamos);
-                System.out.println("YA ESTA TODO CORRECTO, NO LE PRESTES ATENCION A ESOS ERRORES RAROS :) !!!!!");
-            } catch (FileNotFoundException fnfe) {
-                System.err.println(fnfe);
-                System.out.println(carpetasIdioma[i]);
-            } catch (IOException ioe) {
-                System.err.println(ioe);
-                System.out.println(carpetasIdioma[i]);
-            } catch (Exception e) {
-                System.err.println(e);
-                System.out.println(carpetasIdioma[i]);
-            }
-        }
-    }
-    
-    private String selectorIdioma(String idioma) {
-        switch(idioma) {
-            case "es":
-                System.out.println("Español");
-                return "Escritorio";
-            case "en":
-                System.out.println("Ingles");
-                return "Desktop";
-            case "fr":
-                System.out.println("Frances");
-                return "Bureau";
-        }
-        return "Escritorio";
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        variamosTitle = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         directAccessLauncher = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         executeVariamos = new javax.swing.JCheckBox();
         finishBtn = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
+        variamosTitle = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
 
         jLabel2.setText("¿Desea agregar un acceso directo del launcher");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        variamosTitle.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 36)); // NOI18N
-        variamosTitle.setText("VariaMos Installer");
-
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("¿Desea agregar un acceso directo del launcher en el escritorio?");
 
         directAccessLauncher.setText("Si");
 
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("¿Desea ejecutar VariaMos?");
 
         executeVariamos.setText("Si");
 
+        finishBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         finishBtn.setText("Finalizar");
 
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Si no lo selecciona, el launcher estará donde descargó VariaMos");
+        variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        variamosTitle.setText("Instalador de VariaMos");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -143,51 +94,47 @@ public class Final extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(finishBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(directAccessLauncher)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator1)
-                                .addComponent(variamosTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(executeVariamos)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jSeparator2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(directAccessLauncher)
+                                    .addComponent(finishBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(executeVariamos)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(variamosTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(directAccessLauncher, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(finishBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(executeVariamos)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(executeVariamos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                .addComponent(finishBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox directAccessLauncher;
     private javax.swing.JCheckBox executeVariamos;
@@ -195,8 +142,8 @@ public class Final extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel variamosTitle;
     // End of variables declaration//GEN-END:variables
 }

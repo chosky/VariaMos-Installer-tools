@@ -37,35 +37,26 @@ public class Installer {
         }
     }
     
-    public void launchVariamos(String operativeSystem, String ruteLauncher, String ruteJar, boolean execute) throws IOException {
-        Process process = null;
+    public void launchVariamos(String operativeSystem, String ruteLauncher) throws IOException {
         if (operativeSystem.contains("Windows")) {
             PrintWriter writer = new PrintWriter(ruteLauncher + "\\Variamos_Launcher.bat", "UTF-8");
             writer.println("set CLASSPATH=.;C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\lib;%CLASSPATH%");
             writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
-            writer.println("java -jar " + "\"" + ruteJar + "\\variamos.jar\"");
+            writer.println("java -jar " + "\"" + ruteLauncher + "\\variamos.jar\"");
             writer.close();
-            if (execute) {
-                String[] cmd = {"cmd", "/c", ruteJar + "\\Variamos_Launcher.bat"};
-                process = Runtime.getRuntime().exec(cmd);
-            }
         } else if (operativeSystem.contains("Linux")) {
             PrintWriter writer = new PrintWriter(ruteLauncher + "/Variamos_Launcher.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/usr/lib/swi-prolog");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -jar " + "\"" + ruteJar + "/variamos.jar\"");
+            writer.println("java -jar " + "\"" + ruteLauncher + "/variamos.jar\"");
             writer.close();
-            if(execute) 
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
         } else if (operativeSystem.contains("Mac OS")) {
             PrintWriter writer = new PrintWriter(ruteLauncher + "/Variamos_Launcher.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/Applications/SWI-Prolog.app/Contents/swipl");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
             writer.println("export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + ruteJar + "/variamos.jar\"");
+            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + ruteLauncher + "/variamos.jar\"");
             writer.close();
-            if(execute)
-                process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos_Launcher.sh"});
         }
     }
     

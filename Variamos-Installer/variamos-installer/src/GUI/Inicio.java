@@ -12,8 +12,9 @@ public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
         initComponents();
-        infoLbl.setEditable(false);
         this.setTitle("Instalador de VariaMos");
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         
         cancelBtn.addActionListener(new ActionListener() {
             @Override
@@ -29,6 +30,16 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void nextBtnActionPerformed(ActionEvent ae){
+        Directorio selectorDirectorio = new Directorio();
+        selectorDirectorio.setVisible(true);
+        this.dispose();
+    }
+    
+    private void cancelBtnActionPerformed(ActionEvent ae){
+        System.exit(0);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -37,74 +48,103 @@ public class Inicio extends javax.swing.JFrame {
         variamosTitle = new javax.swing.JLabel();
         nextBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        infoLbl = new javax.swing.JTextArea();
+        lenguajeCBox = new javax.swing.JComboBox<>();
+        lenguajeLbl = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(190, 0), new java.awt.Dimension(190, 0), new java.awt.Dimension(190, 32767));
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        variamosTitle.setFont(new java.awt.Font("Franklin Gothic Medium Cond", 1, 36)); // NOI18N
+        variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         variamosTitle.setText("Instalador de VariaMos");
 
-        nextBtn.setText("siguiente");
+        nextBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        nextBtn.setText("Siguiente");
 
-        cancelBtn.setText("cancelar");
+        cancelBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cancelBtn.setText("Cancelar");
 
-        infoLbl.setColumns(20);
-        infoLbl.setRows(5);
-        infoLbl.setText("Herramienta para la instalación de VariaMos \ncon todas sus dependencias, instalación de \nSWI-Prolog y configuración de sus variables \nde ambiente.\nLa herramienta es funcional para distintos \nsistemas operativos como Windows, \nLinux (distribuciones de Debian) e IOs.\n\nDesarrollada por el monitor de EDS.\nMedellín-EAFIT-2017");
-        jScrollPane1.setViewportView(infoLbl);
+        lenguajeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español" }));
+
+        lenguajeLbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lenguajeLbl.setText("Selecciona el idioma:");
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        jLabel1.setText("Herramienta para la instalación de VariaMos y SWI-Prolog .");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(6, 6, 6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lenguajeLbl)
+                            .addComponent(lenguajeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(variamosTitle))
+                        .addComponent(cancelBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nextBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(84, 84, 84)
+                                .addComponent(variamosTitle))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 53, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(19, 19, 19)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118)
+                .addComponent(lenguajeLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lenguajeCBox)
+                .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nextBtn)
-                    .addComponent(cancelBtn))
+                    .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nextBtnActionPerformed(ActionEvent ae){
-        Installer installer = new Installer();
-        installer.setVisible(true);
-        this.dispose();
-    }
-    
-    private void cancelBtnActionPerformed(ActionEvent ae){
-        this.dispose();
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JTextArea infoLbl;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox<String> lenguajeCBox;
+    private javax.swing.JLabel lenguajeLbl;
     private javax.swing.JButton nextBtn;
     private javax.swing.JLabel variamosTitle;
     // End of variables declaration//GEN-END:variables

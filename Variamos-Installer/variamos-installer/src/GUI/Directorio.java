@@ -54,8 +54,7 @@ public class Directorio extends javax.swing.JFrame {
             return;
         } else {
             this.dispose();
-            ProgressInstaller progress = new ProgressInstaller(variamosRuteTxt.getText());
-            progress.setVisible(true);
+            new Thread( (Runnable) new ProgressInstaller(variamosRuteTxt.getText()));
         }
     }
     

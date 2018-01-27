@@ -84,24 +84,12 @@ public class GUIInstallerController {
     
     public void downloadVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
         Object[] options = {"REINTENTAR", "CANCELAR"};
-        Object[] optionsWithManualDownload = {"REINTENTAR", "CANCELAR", "DAR RUTA"};
-        int option;
-        int cont = 0;
+        int opcion;
         while(!instalador.downloadVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
-            if(cont >= 3){
-                option = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, optionsWithManualDownload, optionsWithManualDownload[0]);
-            } else {
-                option = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
+                opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            }
-            if(option == 0){
-                ++cont;
-                continue;
-            } else if(option == 2) {
-                 configuracion.solverDl = JOptionPane.showInputDialog("Dame la ruta de VariaMos");
-            }
-            else break;
+                if(opcion == 0) continue;
+                if(opcion == 1) return;
         }
         JOptionPane.showMessageDialog(null, "VariaMos descargado correctamente.");
     }

@@ -22,6 +22,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
         this.setTitle("Instalando VariaMos y SWI-Prolog...");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setVisible(true);
         siguienteBtn.setEnabled(false);
         pasosTerminalTxt.setEditable(false);
         

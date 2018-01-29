@@ -52,32 +52,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
     private void instalacionProgramas(String rutaVariaMos) throws SAXException, IOException, ParserConfigurationException, FileNotFoundException, InterruptedException {
         ProgressB p = new ProgressB(barraProgreso, rutaVariaMos,pasosTerminalTxt);
         p.execute();
-       /** GUIInstallerController controlador = new GUIInstallerController(rutaVariaMos);
-        
-        
-        controlador.getConfiguracion().loadConfigurationFile();
-        barraProgreso.setValue(20);
-        System.out.println("20");
-        
-        Thread t = new Thread();
-        controlador.installSolver();
-        barraProgreso.setValue(40);
-        System.out.println("40");   
-        
-        
-        controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().operativeSystem);
-        barraProgreso.setValue(60);
-        System.out.println("60");
-        
-        controlador.downloadVariaMos();
-        barraProgreso.setValue(80);
-        System.out.println("80");
-        
-        controlador.getInstalador().launchVariamos(controlador.getConfiguracion().operativeSystem, rutaVariaMos);
-        barraProgreso.setValue(100);
-        
-        **/
-       siguienteBtn.setEnabled(true); 
+        siguienteBtn.setEnabled(true); 
     }
     
     private void siguienteBtnActionPerformed(ActionEvent ae, String rutaVariamos) {

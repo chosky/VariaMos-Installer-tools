@@ -18,20 +18,6 @@ import javax.swing.SwingWorker;
 public class ProgressB extends SwingWorker<Integer, String> {
 
     /**
-     * @return the label
-     */
-    public JLabel getLabel() {
-        return label;
-    }
-
-    /**
-     * @param label the label to set
-     */
-    public void setLabel(JLabel label) {
-        this.label = label;
-    }
-
-    /**
      * @return the jpbar
      */
     public JProgressBar getJpbar() {
@@ -67,9 +53,7 @@ public class ProgressB extends SwingWorker<Integer, String> {
     @Override
     protected Integer doInBackground() throws Exception {
         getJpbar().setIndeterminate(true);
-        
         GUIInstallerController controlador = new GUIInstallerController(this.ruta);
-        
         
         controlador.getConfiguracion().loadConfigurationFile();
         System.out.println("20");
@@ -83,27 +67,21 @@ public class ProgressB extends SwingWorker<Integer, String> {
         
         controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().operativeSystem);
         getTxtarea().append("Configurando variables de ambiete...\n");
-        //barraProgreso.setValue(60);
-        System.out.println("60");
+        
         
         controlador.downloadVariaMos();
-        //barraProgreso.setValue(80);
         System.out.println("80");
         getTxtarea().append("Instalando VariaMos ...\n");
         
         controlador.getInstalador().launchVariamos(controlador.getConfiguracion().operativeSystem, this.ruta);
-        //barraProgreso.setValue(100);
         getTxtarea().append("El proceso de instalación ha finalizado exitosamente ...\n");
         
-        //siguienteBtn.setEnabled(true); **/
         
         getJpbar().setIndeterminate(false);
         return 0;
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public ProgressB(JProgressBar jpbar, String ruta, JTextArea txtarea) {
-        this.label = label;
         this.jpbar = jpbar;
         this.txtarea = txtarea;
         this.ruta = ruta;

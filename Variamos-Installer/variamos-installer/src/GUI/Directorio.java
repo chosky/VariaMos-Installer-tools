@@ -53,8 +53,8 @@ public class Directorio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese una ruta valida");
             return;
         } else {
-            this.dispose();
-            new Thread( (Runnable) new ProgressInstaller(variamosRuteTxt.getText()));
+            this.setVisible(false);
+            new ProgressInstaller(variamosRuteTxt.getText());
         }
     }
     

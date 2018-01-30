@@ -2,6 +2,11 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -32,9 +37,17 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     private void nextBtnActionPerformed(ActionEvent ae){
-        Directorio selectorDirectorio = new Directorio();
-        selectorDirectorio.setVisible(true);
-        this.dispose();
+        try {
+            Directorio selectorDirectorio = new Directorio();
+            selectorDirectorio.setVisible(true);
+            this.dispose();
+        } catch (SAXException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void cancelBtnActionPerformed(ActionEvent ae){

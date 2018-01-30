@@ -142,7 +142,6 @@
               <Font name="SansSerif" size="12" style="0"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="SWI-Prolog 7.6.3&#xa;VariaMos 1.0.1.20"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

@@ -3,8 +3,11 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -13,12 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class Directorio extends javax.swing.JFrame {
     
-    public Directorio(){
+    public Directorio() throws SAXException, IOException, ParserConfigurationException{
         initComponents();
+        variamos.utility.Configuration config = new variamos.utility.Configuration();
+        config.loadConfigurationFile();
         this.setTitle("Instalador de VariaMos y SWI-Prolog");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         variamosRuteTxt.setEditable(false);
+        printTxt.setText("VariaMos " + config.variamosVersion + "\nSWI-Prolog " + config.solverVersion); 
         printTxt.setEditable(false);
         
         installBtn.addActionListener(new ActionListener() {
@@ -106,7 +112,6 @@ public class Directorio extends javax.swing.JFrame {
         printTxt.setColumns(20);
         printTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         printTxt.setRows(5);
-        printTxt.setText("SWI-Prolog 7.6.3\nVariaMos 1.0.1.20");
         jScrollPane1.setViewportView(printTxt);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N

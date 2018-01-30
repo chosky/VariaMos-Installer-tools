@@ -106,6 +106,7 @@ public class Directorio extends javax.swing.JFrame {
         printTxt.setColumns(20);
         printTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         printTxt.setRows(5);
+        printTxt.setText("SWI-Prolog 7.6.3\nVariaMos 1.0.1.20");
         jScrollPane1.setViewportView(printTxt);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N

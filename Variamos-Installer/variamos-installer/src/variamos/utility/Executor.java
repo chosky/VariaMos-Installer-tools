@@ -31,7 +31,7 @@ public class Executor {
             
             //Downloading solver
             if(configuration.solverDl != null){
-                if(installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName))
+                if(installer.downloadSolverFromURL(configuration.solverDl, configuration.nombreSolver))
                     conexionSolverWindowsIOs = true;
                 else
                     conexionSolverWindowsIOs = false;
@@ -39,10 +39,10 @@ public class Executor {
             //installer.installSolver(configuration.operativeSystem, configuration.solverName);
             
             //Configure environment variables
-            installer.configureEnvironmentVariables(configuration.operativeSystem);
+            installer.configureEnvironmentVariables(configuration.sistemaOperativo);
             
             //Downloading VariaMos 
-            if(installer.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, ruteVariamos)) 
+            if(installer.descargarVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, ruteVariamos)) 
                 conexion = true;
             else
                 conexion = false;

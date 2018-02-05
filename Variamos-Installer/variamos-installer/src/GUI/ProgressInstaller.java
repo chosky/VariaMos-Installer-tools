@@ -1,6 +1,5 @@
 package GUI;
 
-import controller.GUIInstallerController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -23,10 +22,8 @@ public class ProgressInstaller extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
-        siguienteBtn.setEnabled(false);
+        
         pasosTerminalTxt.setEditable(false);
-        
-        
         
         try {
             instalacionProgramas(rutaVariamos);
@@ -50,9 +47,8 @@ public class ProgressInstaller extends javax.swing.JFrame {
     }
     
     private void instalacionProgramas(String rutaVariaMos) throws SAXException, IOException, ParserConfigurationException, FileNotFoundException, InterruptedException {
-        ProgressB p = new ProgressB(barraProgreso, rutaVariaMos,pasosTerminalTxt);
+        ProgressB p = new ProgressB(barraProgreso, rutaVariaMos, pasosTerminalTxt, siguienteBtn);
         p.execute();
-        siguienteBtn.setEnabled(true); 
     }
     
     private void siguienteBtnActionPerformed(ActionEvent ae, String rutaVariamos) {
@@ -68,22 +64,22 @@ public class ProgressInstaller extends javax.swing.JFrame {
         variamosTitle = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         barraProgreso = new javax.swing.JProgressBar();
-        siguienteBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         pasosTerminalTxt = new javax.swing.JTextArea();
+        siguienteBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         variamosTitle.setText("Instando VariaMos y SWI-Prolog");
 
-        siguienteBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        siguienteBtn.setText("Siguiente");
-
         pasosTerminalTxt.setColumns(20);
         pasosTerminalTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         pasosTerminalTxt.setRows(5);
         jScrollPane1.setViewportView(pasosTerminalTxt);
+
+        siguienteBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        siguienteBtn.setText("Siguiente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,18 +93,18 @@ public class ProgressInstaller extends javax.swing.JFrame {
                         .addComponent(variamosTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(siguienteBtn)))
-                        .addContainerGap())))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(barraProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(barraProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addComponent(siguienteBtn)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,9 +117,9 @@ public class ProgressInstaller extends javax.swing.JFrame {
                 .addComponent(barraProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(siguienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(siguienteBtn)
+                .addGap(11, 11, 11))
         );
 
         pack();

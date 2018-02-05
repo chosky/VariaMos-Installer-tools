@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import variamos.utility.Configuration;
 import variamos.utility.Installer;
-import GUI.*;
 
 /**
  *
@@ -28,66 +27,64 @@ public class GUIInstallerController {
         this.rutaVariaMos = rutaVariaMos;
     }
     
-    public void installSolver() throws FileNotFoundException, IOException, InterruptedException{
-        Object[] options = {"Reintentar", "Cancelar"};
+    public void instalarSolver() throws FileNotFoundException, IOException, InterruptedException{
+        Object[] opciones = {"Reintentar", "Cancelar"};
         int opcion;
         if(configuracion.solverDl != null){
-            while(!instalador.downloadSolverFromURL(configuracion.solverDl, configuracion.solverName)) {
+            while(!instalador.downloadSolverFromURL(configuracion.solverDl, configuracion.nombreSolver)) {
                 opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
                 if(opcion == 1) return;
             }
             JOptionPane.showMessageDialog(null, "Solver descargado correctamente.");
         }
-        if(!downloadSolverTerminal())
+        if(!descargarSolverTerminal())
             JOptionPane.showMessageDialog(null, "No se instalo el solver. \n Procedo a descargar variamos");
     }
     
-    public boolean downloadSolverTerminal() throws IOException, InterruptedException{
+    public boolean descargarSolverTerminal() throws IOException, InterruptedException{
         String sudoPass = "";       
-        int option;
-        Object[] options = {"REINTENTAR", "CANCELAR"};
-        if(configuracion.operativeSystem.contains("Linux") || configuracion.operativeSystem.contains("Mac OS")){
-            sudoPass = requestPassword();
+        int opcion;
+        Object[] opciones = {"REINTENTAR", "CANCELAR"};
+        if(configuracion.sistemaOperativo.contains("Linux") || configuracion.sistemaOperativo.contains("Mac OS")){
+            sudoPass = pedirContrasena();
         }
-        while(!instalador.installSolver(configuracion.operativeSystem, configuracion.solverName, sudoPass)){
-            option = JOptionPane.showOptionDialog(null, "Contraseña de sudo erronea", "PELIGRO!!", 
-                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            if(option == 0){
-                sudoPass = requestPassword();
-            } else {
-                return false;
-            }
+        while(!instalador.instalarSolver(configuracion.sistemaOperativo, configuracion.nombreSolver, sudoPass)){
+            opcion = JOptionPane.showOptionDialog(null, "Contraseña de sudo erronea", "PELIGRO!!", 
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+            
+            if(opcion == 0)  sudoPass = pedirContrasena();
+            else return false;
         }
         return true;
     }
     
-    public String requestPassword(){
-        char[] passWord;
+    public String pedirContrasena(){
+        char[] contrasena;
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Ingresa la contraseña de sudo:");
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
         String[] options = new String[]{"OK", "CANCELAR"};
-        int option = JOptionPane.showOptionDialog(null, panel, "Contraseña de sudo",
+        int opcion = JOptionPane.showOptionDialog(null, panel, "Contraseña de sudo",
                          JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                          null, options, options[0]);
-        if(option == 0) {
-            passWord = pass.getPassword();
-            return new String(passWord);
+        if(opcion == 0) {
+            contrasena = pass.getPassword();
+            return new String(contrasena);
         }else{
             return "";
         }
     }
     
-    public void downloadVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
-        Object[] options = {"REINTENTAR", "CANCELAR"};
+    public void descargarVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
+        Object[] opciones = {"REINTENTAR", "CANCELAR"};
         int opcion;
-        while(!instalador.downloadVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
+        while(!instalador.descargarVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
                 opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
                 if(opcion == 1) return;
         }

@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package GUI;
 import controller.GUIInstallerController;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.JTextArea;
@@ -13,7 +8,8 @@ import javax.swing.SwingWorker;
 
 /**
  *
- * @author Hassler
+ * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
+ *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class ProgressB extends SwingWorker<Integer, String> {
 
@@ -49,43 +45,39 @@ public class ProgressB extends SwingWorker<Integer, String> {
     private JLabel label;
     private JProgressBar jpbar;
     private JTextArea txtarea; 
+    private JButton siguienteBtn;
 
     @Override
     protected Integer doInBackground() throws Exception {
         getJpbar().setIndeterminate(true);
+        siguienteBtn.setEnabled(false);
+        
         GUIInstallerController controlador = new GUIInstallerController(this.ruta);
         
         controlador.getConfiguracion().loadConfigurationFile();
-        System.out.println("20");
         getTxtarea().append("Iniciando configuración , por favor espere ... \n");
         
-        
-        controlador.installSolver();
-        System.out.println("40");   
+        controlador.instalarSolver();
         getTxtarea().append("Instalando solver, por favor espere\n");
         
-        
-        controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().operativeSystem);
+        controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().sistemaOperativo);
         getTxtarea().append("Configurando variables de ambiete...\n");
         
-        
-        controlador.downloadVariaMos();
-        System.out.println("80");
+        controlador.descargarVariaMos();
         getTxtarea().append("Instalando VariaMos ...\n");
         
-        controlador.getInstalador().launchVariamos(controlador.getConfiguracion().operativeSystem, this.ruta);
+        controlador.getInstalador().launchVariamos(controlador.getConfiguracion().sistemaOperativo, this.ruta);
         getTxtarea().append("El proceso de instalación ha finalizado exitosamente ...\n");
         
-        
         getJpbar().setIndeterminate(false);
+        siguienteBtn.setEnabled(true);
         return 0;
     }
 
-    public ProgressB(JProgressBar jpbar, String ruta, JTextArea txtarea) {
+    public ProgressB(JProgressBar jpbar, String ruta, JTextArea txtarea, JButton siguienteBtn) {
         this.jpbar = jpbar;
         this.txtarea = txtarea;
         this.ruta = ruta;
+        this.siguienteBtn = siguienteBtn;
     }
-    
-    
 }

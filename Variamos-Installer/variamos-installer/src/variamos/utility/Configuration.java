@@ -17,25 +17,25 @@ import org.xml.sax.SAXException;
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Configuration {
-    public String variamosVersion, variamosDl, solverVersion, solverDl, operativeSystem, operativeSystemVersion, solverName, javaVersion;
+    public String variamosVersion, variamosDl, solverVersion, solverDl, sistemaOperativo, sistemaOperativoVersion, nombreSolver, versionJava;
     
     public Configuration(){
-        javaVersion = System.getProperty("java.version");
-        operativeSystem = System.getProperty("os.name");
-        operativeSystemVersion = System.getProperty("sun.arch.data.model");
-        solverName = "solver";
-        if (operativeSystem.contains("Windows")) {
-            solverName += ".exe";
-        } else if (operativeSystem.contains("Mac OS")) {
-            solverName += ".dmg";
+        versionJava = System.getProperty("java.version");
+        sistemaOperativo = System.getProperty("os.name");
+        sistemaOperativoVersion = System.getProperty("sun.arch.data.model");
+        nombreSolver = "solver";
+        if (sistemaOperativo.contains("Windows")) {
+            nombreSolver += ".exe";
+        } else if (sistemaOperativo.contains("Mac OS")) {
+            nombreSolver += ".dmg";
         }
     }
     
     public void loadConfigurationFile() throws SAXException, IOException, ParserConfigurationException {
-        File file = new File("config.xml");
-        file.deleteOnExit();
+        File archivo = new File("config.xml");
+        archivo.deleteOnExit();
         InputStream is = getClass().getResourceAsStream("/configuration_files/configuration.xml");
-        OutputStream outputStream = new FileOutputStream(file);
+        OutputStream outputStream = new FileOutputStream(archivo);
 
         int read = 0;
         byte[] bytes = new byte[1024];
@@ -48,17 +48,17 @@ public class Configuration {
         is.close();
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        Document document = documentBuilder.parse(file);
+        Document document = documentBuilder.parse(archivo);
         variamosVersion = document.getElementsByTagName("variamos-version").item(0).getTextContent();
         solverVersion = document.getElementsByTagName("solver-version").item(0).getTextContent();
         variamosDl = document.getElementsByTagName("variamos-dl").item(0).getTextContent();
-        if (operativeSystem.contains("Windows")) {
-            if (operativeSystemVersion.equals("64")) {
+        if (sistemaOperativo.contains("Windows")) {
+            if (sistemaOperativoVersion.equals("64")) {
                 solverDl = document.getElementsByTagName("Windowsx64").item(0).getTextContent();
-            } else if (operativeSystemVersion.equals("32")) {
+            } else if (sistemaOperativoVersion.equals("32")) {
                 solverDl = document.getElementsByTagName("Windowsx86").item(0).getTextContent();
             }
-        } else if (operativeSystem.contains("Mac OS")) {
+        } else if (sistemaOperativo.contains("Mac OS")) {
             solverDl = document.getElementsByTagName("OSX").item(0).getTextContent();
         }
     }

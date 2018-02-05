@@ -20,27 +20,27 @@ public class GUIFinalController {
                     writer.println("\"" + rutaJar + "/Variamos_Launcher.bat\"");
                     writer.close();
                 } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
-                    generateLauncher(sistemaOperativo, rutaJar);
+                    generarLauncher(sistemaOperativo, rutaJar);
                 }
-                executeVariamos(sistemaOperativo, rutaJar);
+                ejecutarVariamos(sistemaOperativo, rutaJar);
             } else {
                 if(sistemaOperativo.contains("Windows")) {
                     PrintWriter writer = new PrintWriter("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Variamos_Launcher.bat", "UTF-8");
                     writer.println("\"" + rutaJar + "/Variamos_Launcher.bat\"");
                     writer.close();
                 } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
-                    generateLauncher(sistemaOperativo, rutaJar);
+                    generarLauncher(sistemaOperativo, rutaJar);
                 }
             }
 
         } else {
             if (iniciarVariaMos) {
-                executeVariamos(sistemaOperativo, rutaJar);
+                ejecutarVariamos(sistemaOperativo, rutaJar);
             }
         }
     }
     
-    public void executeVariamos(String sistemaOperativo, String ruteJar) throws IOException {
+    public void ejecutarVariamos(String sistemaOperativo, String ruteJar) throws IOException {
         Process process = null;
         if (sistemaOperativo.contains("Windows")) {
             String[] cmd = {"cmd", "/c", ruteJar + "\\Variamos_Launcher.bat"};
@@ -50,7 +50,7 @@ public class GUIFinalController {
         }
     }
     
-    private void generateLauncher(String sistemaOperativo, String rutaJar) throws IOException, FileNotFoundException {
+    private void generarLauncher(String sistemaOperativo, String rutaJar) throws IOException, FileNotFoundException {
         String idioma = Locale.getDefault().getLanguage();
         //String descarga = selectorIdioma(idioma);
         String descarga = "";
@@ -67,13 +67,10 @@ public class GUIFinalController {
                 System.out.println("YA ESTA TODO CORRECTO, NO LE PRESTES ATENCION A ESOS ERRORES RAROS :) !!!!!");
             } catch (FileNotFoundException fnfe) {
                 System.err.println(fnfe);
-                System.out.println(carpetasIdioma[i]);
             } catch (IOException ioe) {
                 System.err.println(ioe);
-                System.out.println(carpetasIdioma[i]);
             } catch (Exception e) {
                 System.err.println(e);
-                System.out.println(carpetasIdioma[i]);
             }
         }
     }

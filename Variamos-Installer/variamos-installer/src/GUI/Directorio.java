@@ -23,6 +23,7 @@ public class Directorio extends javax.swing.JFrame {
         this.setTitle("Instalador de VariaMos y SWI-Prolog");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
         variamosRuteTxt.setEditable(false);
         printTxt.setText("VariaMos " + config.variamosVersion + "\nSWI-Prolog " + config.solverVersion); 
         printTxt.setEditable(false);
@@ -30,14 +31,14 @@ public class Directorio extends javax.swing.JFrame {
         installBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                installBtnActionPerformed(ae);
+                instalarBtnActionPerformed(ae);
             }
         });
         
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                backBtnActionPerformed(ae);
+                atrasBtnActionPerformed(ae);
             }
         });
         
@@ -45,7 +46,7 @@ public class Directorio extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 try {
-                    searchBtnActionPerformed(ae);
+                    buscarBtnActionPerformed(ae);
                 } catch (NullPointerException npe) {
                     System.err.println("ruta invalida");
                 }
@@ -54,7 +55,7 @@ public class Directorio extends javax.swing.JFrame {
         
     }
     
-    private void installBtnActionPerformed(ActionEvent ae) {
+    private void instalarBtnActionPerformed(ActionEvent ae) {
         if(variamosRuteTxt.getText().equals("") || variamosRuteTxt.getText().equals(" ")) {
             JOptionPane.showMessageDialog(this, "Ingrese una ruta valida");
             return;
@@ -64,7 +65,7 @@ public class Directorio extends javax.swing.JFrame {
         }
     }
     
-    private void searchBtnActionPerformed(ActionEvent ae) throws NullPointerException{
+    private void buscarBtnActionPerformed(ActionEvent ae) throws NullPointerException{
         JFileChooser dirSelector = new JFileChooser();
         dirSelector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         dirSelector.showOpenDialog(this);
@@ -73,7 +74,7 @@ public class Directorio extends javax.swing.JFrame {
         variamosRuteTxt.setText(directoryStr);
     }
     
-    private void backBtnActionPerformed(ActionEvent ae){
+    private void atrasBtnActionPerformed(ActionEvent ae){
         this.dispose();
         Inicio ini = new Inicio();
         ini.setVisible(true);

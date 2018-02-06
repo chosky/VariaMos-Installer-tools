@@ -2,12 +2,6 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -25,17 +19,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
         
         pasosTerminalTxt.setEditable(false);
         
-        try {
-            instalacionProgramas(rutaVariamos);
-        } catch (SAXException ex) {
-            Logger.getLogger(ProgressInstaller.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ProgressInstaller.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(ProgressInstaller.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(ProgressInstaller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        instalacionProgramas(rutaVariamos);
         
         siguienteBtn.addActionListener(new ActionListener() {
             @Override
@@ -46,7 +30,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
         
     }
     
-    private void instalacionProgramas(String rutaVariaMos) throws SAXException, IOException, ParserConfigurationException, FileNotFoundException, InterruptedException {
+    private void instalacionProgramas(String rutaVariaMos)  {
         ProgressB p = new ProgressB(barraProgreso, rutaVariaMos, pasosTerminalTxt, siguienteBtn);
         p.execute();
     }

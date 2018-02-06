@@ -63,6 +63,7 @@ public class ProgressB extends SwingWorker<Integer, String> {
         controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().sistemaOperativo);
         getTxtarea().append("Configurando variables de ambiete...\n");
         
+        getTxtarea().append("Descargando VariaMos...\n");
         controlador.descargarVariaMos();
         getTxtarea().append("Instalando VariaMos ...\n");
         

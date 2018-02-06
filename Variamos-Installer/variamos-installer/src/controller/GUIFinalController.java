@@ -32,7 +32,6 @@ public class GUIFinalController {
                     generarLauncher(sistemaOperativo, rutaJar);
                 }
             }
-
         } else {
             if (iniciarVariaMos) {
                 ejecutarVariamos(sistemaOperativo, rutaJar);
@@ -64,13 +63,7 @@ public class GUIFinalController {
                 PrintWriter writer = new PrintWriter(descarga + System.getProperty("user.name") + "/" + carpetasIdioma[i] + "/Variamos_Launcher.sh", "UTF-8");
                 writer.println("sh " + "\"" + rutaJar + "/Variamos_Launcher.sh\"");
                 writer.close();
-                System.out.println("YA ESTA TODO CORRECTO, NO LE PRESTES ATENCION A ESOS ERRORES RAROS :) !!!!!");
-            } catch (FileNotFoundException fnfe) {
-                System.err.println(fnfe);
-            } catch (IOException ioe) {
-                System.err.println(ioe);
             } catch (Exception e) {
-                System.err.println(e);
             }
         }
     }

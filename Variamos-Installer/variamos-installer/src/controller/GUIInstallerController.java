@@ -35,7 +35,7 @@ public class GUIInstallerController {
                 opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
-                if(opcion == 1) return;
+                if(opcion == 1) System.exit(1);
             }
             JOptionPane.showMessageDialog(null, "Solver descargado correctamente.");
         }
@@ -46,7 +46,7 @@ public class GUIInstallerController {
     public boolean descargarSolverTerminal() throws IOException, InterruptedException{
         String sudoPass = "";       
         int opcion;
-        Object[] opciones = {"REINTENTAR", "CANCELAR"};
+        Object[] opciones = {"Reintentar", "Cancelar"};
         if(configuracion.sistemaOperativo.contains("Linux") || configuracion.sistemaOperativo.contains("Mac OS")){
             sudoPass = pedirContrasena();
         }
@@ -67,7 +67,7 @@ public class GUIInstallerController {
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
-        String[] options = new String[]{"OK", "CANCELAR"};
+        String[] options = new String[]{"Ok", "Cancelar"};
         int opcion = JOptionPane.showOptionDialog(null, panel, "Contraseña de sudo",
                          JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                          null, options, options[0]);
@@ -80,13 +80,13 @@ public class GUIInstallerController {
     }
     
     public void descargarVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
-        Object[] opciones = {"REINTENTAR", "CANCELAR"};
+        Object[] opciones = {"Reintentar", "Cancelar"};
         int opcion;
         while(!instalador.descargarVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
                 opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
-                if(opcion == 1) return;
+                if(opcion == 1) System.exit(1);
         }
         JOptionPane.showMessageDialog(null, "VariaMos descargado correctamente.");
     }

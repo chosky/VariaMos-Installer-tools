@@ -2,13 +2,13 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import controller.GUIDirectorioController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
-
 /**
  *
  * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
@@ -16,7 +16,7 @@ import org.xml.sax.SAXException;
  */
 public class Directorio extends javax.swing.JFrame {
     
-    public Directorio() throws SAXException, IOException, ParserConfigurationException{
+    public Directorio() throws SAXException, IOException, ParserConfigurationException {
         initComponents();
         variamos.utility.Configuration config = new variamos.utility.Configuration();
         config.loadConfigurationFile();
@@ -49,6 +49,10 @@ public class Directorio extends javax.swing.JFrame {
                     buscarBtnActionPerformed(ae);
                 } catch (NullPointerException npe) {
                     System.err.println("ruta invalida");
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -65,13 +69,9 @@ public class Directorio extends javax.swing.JFrame {
         }
     }
     
-    private void buscarBtnActionPerformed(ActionEvent ae) throws NullPointerException{
-        JFileChooser dirSelector = new JFileChooser();
-        dirSelector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        dirSelector.showOpenDialog(this);
-        File directory = dirSelector.getSelectedFile();
-        String directoryStr = directory.toString();
-        variamosRuteTxt.setText(directoryStr);
+    private void buscarBtnActionPerformed(ActionEvent ae) throws NullPointerException, InterruptedException, IOException{
+        GUIDirectorioController controlador = new GUIDirectorioController();
+        variamosRuteTxt.setText(controlador.ejecucionDeRuta());
     }
     
     private void atrasBtnActionPerformed(ActionEvent ae){

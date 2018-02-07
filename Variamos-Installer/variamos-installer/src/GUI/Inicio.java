@@ -17,7 +17,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
         initComponents();
-        this.setTitle("Instalador de VariaMos");
+        this.setTitle("VariaMos Installer");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -71,21 +71,26 @@ public class Inicio extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        variamosTitle.setText("Instalador de VariaMos");
+        variamosTitle.setText("VariaMos Installer");
 
         nextBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        nextBtn.setText("Siguiente");
+        nextBtn.setText("Next");
 
         cancelBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cancelBtn.setText("Cancelar");
+        cancelBtn.setText("Cancel");
 
-        lenguajeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español" }));
+        lenguajeCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English" }));
+        lenguajeCBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lenguajeCBoxActionPerformed(evt);
+            }
+        });
 
         lenguajeLbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lenguajeLbl.setText("Selecciona el idioma:");
+        lenguajeLbl.setText("Select the language to use during installation:");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel1.setText("Herramienta para la instalación de VariaMos y SWI-Prolog .");
+        jLabel1.setText("This will install VariaMos and SWI-Prolog");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,7 +111,7 @@ public class Inicio extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lenguajeLbl)
-                            .addComponent(lenguajeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lenguajeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +128,7 @@ public class Inicio extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(86, 86, 86)
                                 .addComponent(jLabel1)))
-                        .addGap(0, 53, Short.MAX_VALUE)))
+                        .addGap(0, 171, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -140,8 +145,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(118, 118, 118)
                 .addComponent(lenguajeLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lenguajeCBox)
-                .addGap(67, 67, 67)
+                .addComponent(lenguajeCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nextBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -150,6 +155,10 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lenguajeCBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lenguajeCBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lenguajeCBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;

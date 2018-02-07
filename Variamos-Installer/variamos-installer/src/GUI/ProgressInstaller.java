@@ -55,7 +55,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        variamosTitle.setText("Instando VariaMos y SWI-Prolog");
+        variamosTitle.setText("Installing VariaMos and SWI-Prolog");
 
         pasosTerminalTxt.setColumns(20);
         pasosTerminalTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -63,7 +63,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
         jScrollPane1.setViewportView(pasosTerminalTxt);
 
         siguienteBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        siguienteBtn.setText("Siguiente");
+        siguienteBtn.setText("Next");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

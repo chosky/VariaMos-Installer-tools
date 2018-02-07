@@ -44,7 +44,7 @@ public class GUIDirectorioController {
             bw.close();
             return "0";
         } catch (Exception e) {
-            return "La ruta esta denegada o no existe, descargue VariaMos en una ruta personal del usuario";
+            return "Access denied. This rute doesn't exist or you don't have admin permissions";
         }
     }
     

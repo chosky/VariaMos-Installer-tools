@@ -28,30 +28,31 @@ public class GUIInstallerController {
     }
     
     public void instalarSolver() throws FileNotFoundException, IOException, InterruptedException{
-        Object[] opciones = {"Reintentar", "Cancelar"};
+        Object[] opciones = {"Try again", "Cancel"};
+    
         int opcion;
         if(configuracion.solverDl != null){
             while(!instalador.downloadSolverFromURL(configuracion.solverDl, configuracion.nombreSolver)) {
-                opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar el solver.", "PELIGRO!!", 
+                opcion = JOptionPane.showOptionDialog(null, "Solver could not been downloaded", "Warning!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
                 if(opcion == 1) System.exit(1);
             }
-            JOptionPane.showMessageDialog(null, "Solver descargado correctamente.");
+            JOptionPane.showMessageDialog(null, "Solver has been downloaded successfully" );
         }
         if(!descargarSolverTerminal())
-            JOptionPane.showMessageDialog(null, "No se instalo el solver. \n Procedo a descargar variamos");
+            JOptionPane.showMessageDialog(null, "Solver has not been downloaded. \n Downloading VariaMos");
     }
     
     public boolean descargarSolverTerminal() throws IOException, InterruptedException{
         String sudoPass = "";       
         int opcion;
-        Object[] opciones = {"Reintentar", "Cancelar"};
+        Object[] opciones = {"Try again", "Cancel"};
         if(configuracion.sistemaOperativo.contains("Linux") || configuracion.sistemaOperativo.contains("Mac OS")){
             sudoPass = pedirContrasena();
         }
         while(!instalador.instalarSolver(configuracion.sistemaOperativo, configuracion.nombreSolver, sudoPass)){
-            opcion = JOptionPane.showOptionDialog(null, "Contraseña de sudo erronea", "PELIGRO!!", 
+            opcion = JOptionPane.showOptionDialog(null, "Invalid password", "Warning!!", 
                                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
             
             if(opcion == 0)  sudoPass = pedirContrasena();
@@ -63,12 +64,12 @@ public class GUIInstallerController {
     public String pedirContrasena(){
         char[] contrasena;
         JPanel panel = new JPanel();
-        JLabel label = new JLabel("Ingresa la contraseña de sudo:");
+        JLabel label = new JLabel("Sudo password: ");
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
-        String[] options = new String[]{"Ok", "Cancelar"};
-        int opcion = JOptionPane.showOptionDialog(null, panel, "Contraseña de sudo",
+        String[] options = new String[]{"Ok", "Cancel"};
+        int opcion = JOptionPane.showOptionDialog(null, panel, "Sudo password",
                          JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                          null, options, options[0]);
         if(opcion == 0) {
@@ -80,15 +81,15 @@ public class GUIInstallerController {
     }
     
     public void descargarVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
-        Object[] opciones = {"Reintentar", "Cancelar"};
+        Object[] opciones = {"Try again", "Cancel"};
         int opcion;
         while(!instalador.descargarVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
-                opcion = JOptionPane.showOptionDialog(null, "No se pudo hacer conexion para descargar VariaMos.", "PELIGRO!!", 
+                opcion = JOptionPane.showOptionDialog(null, "VariaMos could not been downloaded", "Warning!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 if(opcion == 0) continue;
                 if(opcion == 1) System.exit(1);
         }
-        JOptionPane.showMessageDialog(null, "VariaMos descargado correctamente.");
+        JOptionPane.showMessageDialog(null, "VariaMos has been downloaded successfuly");
     }
     
     public Configuration getConfiguracion() {

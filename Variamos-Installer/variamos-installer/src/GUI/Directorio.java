@@ -99,16 +99,16 @@ public class Directorio extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        variamosTitle.setText("Instalador de VariaMos");
+        variamosTitle.setText("VariaMos Installer");
 
         backBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        backBtn.setText("Atras");
+        backBtn.setText("Back");
 
         installBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        installBtn.setText("Instalar");
+        installBtn.setText("Install");
 
         infoLbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        infoLbl.setText("Se instalarán los siguientes paquetes: ");
+        infoLbl.setText("These software will be installed");
 
         printTxt.setColumns(20);
         printTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -116,10 +116,10 @@ public class Directorio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(printTxt);
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        jLabel3.setText("Seleccionar ruta de instalación de VariaMos");
+        jLabel3.setText("Destination folder:");
 
         searchBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        searchBtn.setText("Buscar");
+        searchBtn.setText("Browse");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -183,6 +183,7 @@ public class Directorio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel infoLbl;

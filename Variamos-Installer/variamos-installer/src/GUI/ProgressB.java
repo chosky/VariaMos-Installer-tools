@@ -55,20 +55,20 @@ public class ProgressB extends SwingWorker<Integer, String> {
         GUIInstallerController controlador = new GUIInstallerController(this.ruta);
         
         controlador.getConfiguracion().loadConfigurationFile();
-        getTxtarea().append("Iniciando configuración , por favor espere ... \n");
+        getTxtarea().append("Starting configuration , please wait ... \n");
         
         controlador.instalarSolver();
-        getTxtarea().append("Instalando solver, por favor espere\n");
+        getTxtarea().append("Installing Solver, please wait...\n");
         
         controlador.getInstalador().configureEnvironmentVariables(controlador.getConfiguracion().sistemaOperativo);
-        getTxtarea().append("Configurando variables de ambiete...\n");
+        getTxtarea().append("Setting environment variables...\n");
         
-        getTxtarea().append("Descargando VariaMos...\n");
+        getTxtarea().append("Downloading VariaMos...\n");
         controlador.descargarVariaMos();
-        getTxtarea().append("Instalando VariaMos ...\n");
+        getTxtarea().append("Installing VariaMos ...\n");
         
         controlador.getInstalador().launchVariamos(controlador.getConfiguracion().sistemaOperativo, this.ruta);
-        getTxtarea().append("El proceso de instalación ha finalizado exitosamente ...\n");
+        getTxtarea().append("VariaMos has been downloaded and installed successfully!! \n");
         
         getJpbar().setIndeterminate(false);
         siguienteBtn.setEnabled(true);

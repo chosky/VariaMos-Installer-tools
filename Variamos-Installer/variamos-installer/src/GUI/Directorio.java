@@ -20,7 +20,7 @@ public class Directorio extends javax.swing.JFrame {
         initComponents();
         variamos.utility.Configuration config = new variamos.utility.Configuration();
         config.loadConfigurationFile();
-        this.setTitle("Instalador de VariaMos y SWI-Prolog");
+        this.setTitle("VariaMos and SWI-Prolog Installer");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         

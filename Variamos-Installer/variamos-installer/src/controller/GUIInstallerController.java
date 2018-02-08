@@ -20,6 +20,7 @@ public class GUIInstallerController {
     private Configuration configuracion;
     private variamos.utility.Installer instalador;
     private String rutaVariaMos;
+    private Object[] acept = {"OK"};
     
     public GUIInstallerController(String rutaVariaMos) {
         configuracion = new Configuration();
@@ -29,6 +30,7 @@ public class GUIInstallerController {
     
     public void instalarSolver() throws FileNotFoundException, IOException, InterruptedException{
         Object[] opciones = {"Try again", "Cancel"};
+        
     
         int opcion;
         if(configuracion.solverDl != null){
@@ -38,10 +40,12 @@ public class GUIInstallerController {
                 if(opcion == 0) continue;
                 if(opcion == 1) System.exit(1);
             }
-            JOptionPane.showMessageDialog(null, "Solver has been downloaded successfully" );
+            JOptionPane.showOptionDialog(null, "Solver has been downloaded successfully ", "Message", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
         }
         if(!descargarSolverTerminal())
-            JOptionPane.showMessageDialog(null, "Solver has not been downloaded. \n Downloading VariaMos");
+            JOptionPane.showOptionDialog(null, "Solver has been downloaded successfully ", "Message", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
     }
     
     public boolean descargarSolverTerminal() throws IOException, InterruptedException{
@@ -89,7 +93,8 @@ public class GUIInstallerController {
                 if(opcion == 0) continue;
                 if(opcion == 1) System.exit(1);
         }
-        JOptionPane.showMessageDialog(null, "VariaMos has been downloaded successfuly");
+        JOptionPane.showOptionDialog(null, "VariaMos has been downloaded successfully ", "Message", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
     }
     
     public Configuration getConfiguracion() {

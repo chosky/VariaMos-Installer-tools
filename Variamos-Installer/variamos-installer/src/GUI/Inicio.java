@@ -68,7 +68,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(0, 153, 153));
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         variamosTitle.setText("VariaMos Installer");
@@ -88,6 +88,8 @@ public class Inicio extends javax.swing.JFrame {
 
         lenguajeLbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lenguajeLbl.setText("Select the language to use during installation:");
+
+        filler1.setBackground(new java.awt.Color(51, 255, 51));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("This will install VariaMos and SWI-Prolog");

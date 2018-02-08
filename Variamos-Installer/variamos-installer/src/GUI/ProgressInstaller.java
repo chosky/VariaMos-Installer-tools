@@ -12,7 +12,7 @@ public class ProgressInstaller extends javax.swing.JFrame {
 
     public ProgressInstaller(String rutaVariamos) {
         initComponents();
-        this.setTitle("Instalando VariaMos y SWI-Prolog...");
+        this.setTitle("Installing VariaMos and SWI-Prolog...");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);

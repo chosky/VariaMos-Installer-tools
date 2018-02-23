@@ -17,7 +17,7 @@ public class GUIFinalController {
             if (iniciarVariaMos) {
                 if(sistemaOperativo.contains("Windows")) {
                     PrintWriter writer = new PrintWriter("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Variamos.bat", "UTF-8");
-                    writer.println("\"" + rutaJar + "/Variamos.bat\"");
+                    writer.println("\"" + rutaJar + "\\Variamos-Resources\\Variamos.bat\"");
                     writer.close();
                 } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
                     generarLauncher(sistemaOperativo, rutaJar);
@@ -26,7 +26,7 @@ public class GUIFinalController {
             } else {
                 if(sistemaOperativo.contains("Windows")) {
                     PrintWriter writer = new PrintWriter("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Variamos.bat", "UTF-8");
-                    writer.println("\"" + rutaJar + "/Variamos.bat\"");
+                    writer.println("\"" + rutaJar + "\\Variamos-Resources\\Variamos.bat\"");
                     writer.close();
                 } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
                     generarLauncher(sistemaOperativo, rutaJar);
@@ -42,10 +42,10 @@ public class GUIFinalController {
     public void ejecutarVariamos(String sistemaOperativo, String ruteJar) throws IOException {
         Process process = null;
         if (sistemaOperativo.contains("Windows")) {
-            String[] cmd = {"cmd", "/c", ruteJar + "\\Launcher.bat"};
+            String[] cmd = {"cmd", "/c", ruteJar + "\\Variamos-Resources\\Variamos.bat"};
             process = Runtime.getRuntime().exec(cmd);
         } else {
-            process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos.sh"});
+            process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos-Resources/Variamos.sh"});
         }
     }
     
@@ -61,7 +61,7 @@ public class GUIFinalController {
         for(int i = 0; i < carpetasIdioma.length; ++i) {
             try {
                 PrintWriter writer = new PrintWriter(descarga + System.getProperty("user.name") + "/" + carpetasIdioma[i] + "/Variamos.sh", "UTF-8");
-                writer.println("sh " + "\"" + rutaJar + "/Variamos.sh\"");
+                writer.println("sh " + "\"" + rutaJar + "/Variamos-Resources/Variamos.sh\"");
                 writer.close();
             } catch (Exception e) {
             }

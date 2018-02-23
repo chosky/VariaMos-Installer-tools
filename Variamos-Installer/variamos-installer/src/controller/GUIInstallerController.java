@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -87,6 +88,10 @@ public class GUIInstallerController {
     public void descargarVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
         Object[] opciones = {"Try again", "Cancel"};
         int opcion;
+        File archivoVariamos;
+        if(configuracion.sistemaOperativo.equals("Windows")) archivoVariamos = new File(rutaVariaMos + "\\Variamos-Resources");
+        else archivoVariamos = new File(rutaVariaMos + "/Variamos-Resources");
+        archivoVariamos.mkdir();
         while(!instalador.descargarVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
                 opcion = JOptionPane.showOptionDialog(null, "VariaMos could not been downloaded", "Warning!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);

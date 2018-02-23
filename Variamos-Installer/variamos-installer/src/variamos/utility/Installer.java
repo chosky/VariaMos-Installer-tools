@@ -25,15 +25,10 @@ public class Installer {
         System.out.println("Descargando VariaMos " + configuratcion + "...");
         try {
             URL newUrl = new URL(url);
-
-            Path targetPath = new File(ruta + "/.variamos_pre-file.jar").toPath();
+            
+            Path targetPath = new File(ruta + "/Variamos-Resources/variamos_pre-file.jar").toPath();
             
             Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
-            
-            Boolean hidden = (Boolean) Files.getAttribute(targetPath, "dos:hidden", LinkOption.NOFOLLOW_LINKS);
-            if (hidden != null && !hidden) {
-		Files.setAttribute(targetPath, "dos:hidden", Boolean.TRUE, LinkOption.NOFOLLOW_LINKS);
-            }
             
             System.out.println("Variamos se descargo correctamente.");
             return true;
@@ -49,7 +44,6 @@ public class Installer {
             return false;
         } catch (IOException ioe) {
             System.err.println("Variamos no se descargó correctamente por operaciones de i/o.");
-            System.err.println(ioe);
             return false;
         } catch (Exception e) {
             System.err.println("Variamos no se descargó.");
@@ -59,23 +53,24 @@ public class Installer {
     
     public void launchVariamos(String sistemaOperativo, String rutaLauncher) throws IOException {
         if (sistemaOperativo.contains("Windows")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "\\Variamos.bat", "UTF-8");
+            PrintWriter writer = new PrintWriter(rutaLauncher + "\\Variamos-Resources\\Variamos.bat", "UTF-8");
+            writer.println("@echo off");
             writer.println("set CLASSPATH=.;C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\lib;%CLASSPATH%");
             writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
-            writer.println("java -jar " + "\"" + rutaLauncher + "\\.variamos_pre-file.jar\"");
+            writer.println("java -jar " + "\"" + rutaLauncher + "\\Variamos-Resources\\variamos_pre-file.jar\"");
             writer.close();
         } else if (sistemaOperativo.contains("Linux")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos.sh", "UTF-8");
+            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos-Resources/Variamos.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/usr/lib/swi-prolog");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -jar " + "\"" + rutaLauncher + "/.variamos_pre-file.jar\"");
+            writer.println("java -jar " + "\"" + rutaLauncher + "/Variamos-Resources/variamos_pre-file.jar\"");
             writer.close();
         } else if (sistemaOperativo.contains("Mac OS")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos.sh", "UTF-8");
+            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos-Resources/Variamos.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/Applications/SWI-Prolog.app/Contents/swipl");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
             writer.println("export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + rutaLauncher + "/.variamos_pre-file.jar\"");
+            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + rutaLauncher + "/Variamos-Resources/variamos_pre-file.jar\"");
             writer.close();
         }
     }

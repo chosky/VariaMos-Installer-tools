@@ -17,17 +17,17 @@ import org.xml.sax.SAXException;
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Configuration {
-    public String variamosVersion, variamosDl, solverVersion, solverDl, sistemaOperativo, sistemaOperativoVersion, nombreSolver, versionJava;
+    public String variamosVersion, variamosDl, solverVersion, solverDl, operativeSystem, operativeSystemVersion, solverName, versionJava;
     
     public Configuration(){
         versionJava = System.getProperty("java.version");
-        sistemaOperativo = System.getProperty("os.name");
-        sistemaOperativoVersion = System.getProperty("sun.arch.data.model");
-        nombreSolver = "solver";
-        if (sistemaOperativo.contains("Windows")) {
-            nombreSolver += ".exe";
-        } else if (sistemaOperativo.contains("Mac OS")) {
-            nombreSolver += ".dmg";
+        operativeSystem = System.getProperty("os.name");
+        operativeSystemVersion = System.getProperty("sun.arch.data.model");
+        solverName = "solver";
+        if (operativeSystem.contains("Windows")) {
+            solverName += ".exe";
+        } else if (operativeSystem.contains("Mac OS")) {
+            solverName += ".dmg";
         }
     }
     
@@ -52,13 +52,13 @@ public class Configuration {
         variamosVersion = document.getElementsByTagName("variamos-version").item(0).getTextContent();
         solverVersion = document.getElementsByTagName("solver-version").item(0).getTextContent();
         variamosDl = document.getElementsByTagName("variamos-dl").item(0).getTextContent();
-        if (sistemaOperativo.contains("Windows")) {
-            if (sistemaOperativoVersion.equals("64")) {
+        if (operativeSystem.contains("Windows")) {
+            if (operativeSystemVersion.equals("64")) {
                 solverDl = document.getElementsByTagName("Windowsx64").item(0).getTextContent();
-            } else if (sistemaOperativoVersion.equals("32")) {
+            } else if (operativeSystemVersion.equals("32")) {
                 solverDl = document.getElementsByTagName("Windowsx86").item(0).getTextContent();
             }
-        } else if (sistemaOperativo.contains("Mac OS")) {
+        } else if (operativeSystem.contains("Mac OS")) {
             solverDl = document.getElementsByTagName("OSX").item(0).getTextContent();
         }
     }

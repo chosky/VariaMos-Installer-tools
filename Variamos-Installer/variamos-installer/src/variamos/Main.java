@@ -9,7 +9,7 @@ package variamos;
 public class Main {
     
     public static void main(String[] args) {
-        GUI.Inicio ventanaInicio = new GUI.Inicio();
+        GUI.Start ventanaInicio = new GUI.Start();
         ventanaInicio.setVisible(true);
     }
 }

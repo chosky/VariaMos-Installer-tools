@@ -13,9 +13,9 @@ import org.xml.sax.SAXException;
  * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
-public class Inicio extends javax.swing.JFrame {
+public class Start extends javax.swing.JFrame {
 
-    public Inicio() {
+    public Start() {
         initComponents();
         this.setTitle("VariaMos Installer");
         this.setLocationRelativeTo(null);
@@ -38,15 +38,15 @@ public class Inicio extends javax.swing.JFrame {
     
     private void nextBtnActionPerformed(ActionEvent ae){
         try {
-            Directorio selectorDirectorio = new Directorio();
-            selectorDirectorio.setVisible(true);
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setVisible(true);
             this.dispose();
         } catch (SAXException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Start.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

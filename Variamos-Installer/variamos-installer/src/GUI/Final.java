@@ -1,6 +1,6 @@
 package GUI;
 
-import controller.GUIFinalController;
+import GUI.GUI_controller.GUIFinalController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  */
 public class Final extends javax.swing.JFrame {
     
-    String rutaVariamos;
-    public Final(String rutaVariamos) {
+    String variamosRoute;
+    public Final(String variamosRoute) {
         initComponents();
         this.setTitle("VariaMos Installer");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.rutaVariamos = rutaVariamos;
-        accesoDirecto.setSelected(true);
+        this.variamosRoute = variamosRoute;
+        directAccess.setSelected(true);
         
         finalizarBtn.addActionListener(new ActionListener() {
             @Override
@@ -38,17 +38,17 @@ public class Final extends javax.swing.JFrame {
    
     private void finalizarBtnActionPerformed(ActionEvent ae) throws IOException {
         GUIFinalController finalControler = new GUIFinalController();
-        if (accesoDirecto.isSelected()) {
-            if (ejecutarVariamos.isSelected()) {
-                finalControler.opcionesDeLauncherYFinal(true, true, System.getProperty("os.name"), rutaVariamos);
+        if (directAccess.isSelected()) {
+            if (startVariaMos.isSelected()) {
+                finalControler.opcionesDeLauncherYFinal(true, true, System.getProperty("os.name"), variamosRoute);
             } else {
-                finalControler.opcionesDeLauncherYFinal(true, false, System.getProperty("os.name"), rutaVariamos);
+                finalControler.opcionesDeLauncherYFinal(true, false, System.getProperty("os.name"), variamosRoute);
             }
         } else {
-            if (ejecutarVariamos.isSelected()) {
-                finalControler.opcionesDeLauncherYFinal(false, true, System.getProperty("os.name"), rutaVariamos);
+            if (startVariaMos.isSelected()) {
+                finalControler.opcionesDeLauncherYFinal(false, true, System.getProperty("os.name"), variamosRoute);
             } else {
-                finalControler.opcionesDeLauncherYFinal(false, false, System.getProperty("os.name"), rutaVariamos);
+                finalControler.opcionesDeLauncherYFinal(false, false, System.getProperty("os.name"), variamosRoute);
             }
         }
         this.dispose();
@@ -61,9 +61,9 @@ public class Final extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        accesoDirecto = new javax.swing.JCheckBox();
+        directAccess = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        ejecutarVariamos = new javax.swing.JCheckBox();
+        startVariaMos = new javax.swing.JCheckBox();
         finalizarBtn = new javax.swing.JButton();
         variamosTitle = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
@@ -75,12 +75,12 @@ public class Final extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel3.setText("Create a desktop icon");
 
-        accesoDirecto.setText("Yes");
+        directAccess.setText("Yes");
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel1.setText("Launch VariaMos");
 
-        ejecutarVariamos.setText("Yes");
+        startVariaMos.setText("Yes");
 
         finalizarBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         finalizarBtn.setText("Finish");
@@ -112,8 +112,8 @@ public class Final extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1)
-                                            .addComponent(accesoDirecto)
-                                            .addComponent(ejecutarVariamos))
+                                            .addComponent(directAccess)
+                                            .addComponent(startVariaMos))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addContainerGap())))
         );
@@ -127,11 +127,11 @@ public class Final extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(accesoDirecto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(directAccess, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ejecutarVariamos)
+                .addComponent(startVariaMos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(finalizarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -141,13 +141,13 @@ public class Final extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox accesoDirecto;
-    private javax.swing.JCheckBox ejecutarVariamos;
+    private javax.swing.JCheckBox directAccess;
     private javax.swing.JButton finalizarBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JCheckBox startVariaMos;
     private javax.swing.JLabel variamosTitle;
     // End of variables declaration//GEN-END:variables
 }

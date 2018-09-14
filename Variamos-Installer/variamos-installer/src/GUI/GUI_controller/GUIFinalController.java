@@ -1,4 +1,4 @@
-package controller;
+package GUI.GUI_controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,56 +12,56 @@ import java.util.Locale;
  */
 public class GUIFinalController {
     
-    public void opcionesDeLauncherYFinal(boolean accesoDirecto, boolean iniciarVariaMos, String sistemaOperativo, String rutaJar) throws IOException {
-        if (accesoDirecto) {
-            if (iniciarVariaMos) {
-                if(sistemaOperativo.contains("Windows")) {
+    public void opcionesDeLauncherYFinal(boolean directAccess, boolean startVariaMos, String operativeSystem, String jarRoute) throws IOException {
+        if (directAccess) {
+            if (startVariaMos) {
+                if(operativeSystem.contains("Windows")) {
                     PrintWriter writer = new PrintWriter("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Variamos.bat", "UTF-8");
-                    writer.println("\"" + rutaJar + "\\Variamos-Resources\\Variamos.bat\"");
+                    writer.println("\"" + jarRoute + "\\Variamos-Resources\\Variamos.bat\"");
                     writer.close();
-                } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
-                    generarLauncher(sistemaOperativo, rutaJar);
+                } else if (operativeSystem.contains("Linux") || operativeSystem.contains("Mac OS")) {
+                    generateLauncher(operativeSystem, jarRoute);
                 }
-                ejecutarVariamos(sistemaOperativo, rutaJar);
+                executeVariamos(operativeSystem, jarRoute);
             } else {
-                if(sistemaOperativo.contains("Windows")) {
+                if(operativeSystem.contains("Windows")) {
                     PrintWriter writer = new PrintWriter("C:\\Users\\" + System.getProperty("user.name") + "\\Desktop\\Variamos.bat", "UTF-8");
-                    writer.println("\"" + rutaJar + "\\Variamos-Resources\\Variamos.bat\"");
+                    writer.println("\"" + jarRoute + "\\Variamos-Resources\\Variamos.bat\"");
                     writer.close();
-                } else if (sistemaOperativo.contains("Linux") || sistemaOperativo.contains("Mac OS")) {
-                    generarLauncher(sistemaOperativo, rutaJar);
+                } else if (operativeSystem.contains("Linux") || operativeSystem.contains("Mac OS")) {
+                    generateLauncher(operativeSystem, jarRoute);
                 }
             }
         } else {
-            if (iniciarVariaMos) {
-                ejecutarVariamos(sistemaOperativo, rutaJar);
+            if (startVariaMos) {
+                executeVariamos(operativeSystem, jarRoute);
             }
         }
     }
     
-    public void ejecutarVariamos(String sistemaOperativo, String ruteJar) throws IOException {
+    public void executeVariamos(String operativeSystem, String jarRoute) throws IOException {
         Process process = null;
-        if (sistemaOperativo.contains("Windows")) {
-            String[] cmd = {"cmd", "/c", ruteJar + "\\Variamos-Resources\\Variamos.bat"};
+        if (operativeSystem.contains("Windows")) {
+            String[] cmd = {"cmd", "/c", jarRoute + "\\Variamos-Resources\\Variamos.bat"};
             process = Runtime.getRuntime().exec(cmd);
         } else {
-            process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + ruteJar + "/Variamos-Resources/Variamos.sh"});
+            process = Runtime.getRuntime().exec(new String[]{"bash", "-c", "sh " + jarRoute + "/Variamos-Resources/Variamos.sh"});
         }
     }
     
-    private void generarLauncher(String sistemaOperativo, String rutaJar) throws IOException, FileNotFoundException {
-        String idioma = Locale.getDefault().getLanguage();
+    private void generateLauncher(String operativeSystem, String jarRoute) throws IOException, FileNotFoundException {
+        //String idioma = Locale.getDefault().getLanguage();
         //String descarga = selectorIdioma(idioma);
-        String descarga = "";
-        String[] carpetasIdioma = {"Escritorio", "Desktop", "Bureau"};
+        String download = "";
+        String[] languageFolders = {"Escritorio", "Desktop", "Bureau"};
         
-        if(sistemaOperativo.contains("Linux")) descarga = "/home/";
-        else if(sistemaOperativo.contains("Mac OS")) descarga = "/Users/";
+        if(operativeSystem.contains("Linux")) download = "/home/";
+        else if(operativeSystem.contains("Mac OS")) download = "/Users/";
 
-        for(int i = 0; i < carpetasIdioma.length; ++i) {
+        for(int i = 0; i < languageFolders.length; ++i) {
             try {
-                PrintWriter writer = new PrintWriter(descarga + System.getProperty("user.name") + "/" + carpetasIdioma[i] + "/Variamos.sh", "UTF-8");
-                writer.println("sh " + "\"" + rutaJar + "/Variamos-Resources/Variamos.sh\"");
+                PrintWriter writer = new PrintWriter(download + System.getProperty("user.name") + "/" + languageFolders[i] + "/Variamos.sh", "UTF-8");
+                writer.println("sh " + "\"" + jarRoute + "/Variamos-Resources/Variamos.sh\"");
                 writer.close();
             } catch (Exception e) {
             }

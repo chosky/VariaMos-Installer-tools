@@ -10,9 +10,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.LinkedList;
 
 /**
  *
@@ -21,12 +21,14 @@ import java.nio.file.StandardCopyOption;
  */
 public class Installer {
     
-    public boolean descargarVariamosFromURL(String url, String configuratcion, String ruta) throws MalformedURLException, FileNotFoundException, InterruptedException, IOException {
-        System.out.println("Descargando VariaMos " + configuratcion + "...");
+    LinkedList<String> outTerminal = new LinkedList();
+    
+    public boolean downloadVariamosFromURL(String url, String configuration, String route) throws MalformedURLException, FileNotFoundException, InterruptedException, IOException {
+        System.out.println("Downloading VariaMos " + configuration + "...");
         try {
             URL newUrl = new URL(url);
             
-            Path targetPath = new File(ruta + "/Variamos-Resources/variamos_pre-file.jar").toPath();
+            Path targetPath = new File(route + "/Variamos-Resources/variamos_pre-file.jar").toPath();
             
             Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             
@@ -51,34 +53,34 @@ public class Installer {
         }
     }
     
-    public void launchVariamos(String sistemaOperativo, String rutaLauncher) throws IOException {
-        if (sistemaOperativo.contains("Windows")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "\\Variamos-Resources\\Variamos.bat", "UTF-8");
+    public void launchVariamos(String operativeSystem, String launcherRoute) throws IOException {
+        if (operativeSystem.contains("Windows")) {
+            PrintWriter writer = new PrintWriter(launcherRoute + "\\Variamos-Resources\\Variamos.bat", "UTF-8");
             writer.println("@echo off");
             writer.println("set CLASSPATH=.;C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\lib;%CLASSPATH%");
             writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
-            writer.println("java -jar " + "\"" + rutaLauncher + "\\Variamos-Resources\\variamos_pre-file.jar\"");
+            writer.println("java -jar " + "\"" + launcherRoute + "\\Variamos-Resources\\variamos_pre-file.jar\"");
             writer.close();
-        } else if (sistemaOperativo.contains("Linux")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos-Resources/Variamos.sh", "UTF-8");
+        } else if (operativeSystem.contains("Linux")) {
+            PrintWriter writer = new PrintWriter(launcherRoute + "/Variamos-Resources/Variamos.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/usr/lib/swi-prolog");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -jar " + "\"" + rutaLauncher + "/Variamos-Resources/variamos_pre-file.jar\"");
+            writer.println("java -jar " + "\"" + launcherRoute + "/Variamos-Resources/variamos_pre-file.jar\"");
             writer.close();
-        } else if (sistemaOperativo.contains("Mac OS")) {
-            PrintWriter writer = new PrintWriter(rutaLauncher + "/Variamos-Resources/Variamos.sh", "UTF-8");
+        } else if (operativeSystem.contains("Mac OS")) {
+            PrintWriter writer = new PrintWriter(launcherRoute + "/Variamos-Resources/Variamos.sh", "UTF-8");
             writer.println("export SWI_HOME_DIR=/Applications/SWI-Prolog.app/Contents/swipl");
             writer.println("export PATH=$PATH:$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
             writer.println("export CLASSPATH=$SWI_HOME_DIR/lib/:$SWI_HOME_DIR/lib/jpl.jar");
-            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + rutaLauncher + "/Variamos-Resources/variamos_pre-file.jar\"");
+            writer.println("java -Djava.library.path=$SWI_HOME_DIR:$SWI_HOME_DIR/lib/x86_64-darwin15.6.0/ -jar " + "\"" + launcherRoute + "/Variamos-Resources/variamos_pre-file.jar\"");
             writer.close();
         }
     }
     
-    public boolean downloadSolverFromURL(String url, String nombreSolver) throws MalformedURLException, FileNotFoundException, IOException {
+    public boolean downloadSolverFromURL(String url, String solverName) throws MalformedURLException, FileNotFoundException, IOException {
         try {
             URL _url = new URL(url);
-            File solver = new File(System.getProperty("user.dir") + "/" + nombreSolver);
+            File solver = new File(System.getProperty("user.dir") + "/" + solverName);
             solver.deleteOnExit();
             Path targetPath = solver.toPath();
 
@@ -102,13 +104,13 @@ public class Installer {
         }
     }
     
-    public boolean instalarSolver(String sistemaOperativo, String nombreSolver, String sudoPass) throws IOException, InterruptedException {
+    public boolean instalarSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
         Process process = null;
-        if (sistemaOperativo.contains("Windows")) {
-            String[] cmd = {"cmd", "/c", System.getProperty("user.dir") + "\\" + nombreSolver + "\""};
+        if (operativeSystem.contains("Windows")) {
+            String[] cmd = {"cmd", "/c", System.getProperty("user.dir") + "\\" + solverName + "\""};
             process = Runtime.getRuntime().exec(cmd);
             process.waitFor();
-        } else if (sistemaOperativo.contains("Linux")) {
+        } else if (operativeSystem.contains("Linux")) {
             if(!sudoTest(sudoPass)) return false;
             runCommand("echo " + sudoPass + "| sudo -S apt-get update");
             runCommand("echo " + sudoPass + "| sudo -S apt-get install default-jre");
@@ -116,14 +118,14 @@ public class Installer {
             runCommand("echo " + sudoPass + "| sudo -S apt-get update");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog");
             runCommand("echo " + sudoPass + "| sudo -S apt-get --assume-yes install swi-prolog-java");
-        } else if (sistemaOperativo.contains("Mac OS")) {
+        } else if (operativeSystem.contains("Mac OS")) {
             if(!sudoTest(sudoPass)) return false;
             if(!preConfigurationOSX()) {
                 runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/");
                 runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/lib/");
                 runCommand("echo " + sudoPass + "| sudo export PATH=$PATH:/usr/local/lib/");
             }
-            runCommand("echo " + sudoPass + "| sudo -S hdiutil attach " + nombreSolver);
+            runCommand("echo " + sudoPass + "| sudo -S hdiutil attach " + solverName);
             runCommand("echo " + sudoPass + "| sudo -S cp -R /Volumes/SWI-Prolog/SWI-Prolog.app /Applications");
             runCommand("hdiutil unmount /Volumes/SWI-Prolog/");
             runCommand("echo " + sudoPass + "| sudo -S cp /Applications/SWI-Prolog.app/Contents/swipl/lib/x86_64-darwin15.6.0/* /usr/local/lib/");
@@ -145,8 +147,8 @@ public class Installer {
         process.destroy();
     }
      
-    public void configureEnvironmentVariables(String sistemaOperativo) throws IOException, InterruptedException {
-        if (sistemaOperativo.contains("Windows")) {
+    public void configureEnvironmentVariables(String operativeSystem) throws IOException, InterruptedException {
+        if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
             String classpath = System.getenv("CLASSPATH");
 

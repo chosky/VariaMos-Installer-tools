@@ -1,4 +1,4 @@
-package controller;
+package GUI.GUI_controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,20 +14,20 @@ import javax.swing.JOptionPane;
  * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
-public class GUIDirectorioController {
+public class GUIDirectoryController {
     
-    public String ejecucionDeRuta() throws FileNotFoundException, InterruptedException, IOException  {
-        String ruta = darRutaDeDirectorio();
-        String mensaje = pruebaRuta(ruta);
-        while(!mensaje.equals("0")){
-            JOptionPane.showMessageDialog(null, mensaje);
-            ruta = darRutaDeDirectorio();
-            mensaje = pruebaRuta(ruta);
+    public String routeExecutor() throws FileNotFoundException, InterruptedException, IOException  {
+        String route = giveDirectoryPath();
+        String message = testRoute(route);
+        while(!message.equals("0")){
+            JOptionPane.showMessageDialog(null, message);
+            route = giveDirectoryPath();
+            message = testRoute(route);
         }
-        return ruta;
+        return route;
     }
     
-    public String darRutaDeDirectorio (){
+    public String giveDirectoryPath (){
         JFileChooser dirSelector = new JFileChooser();
         dirSelector.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         dirSelector.showOpenDialog(dirSelector);
@@ -36,11 +36,11 @@ public class GUIDirectorioController {
         return directoryStr;
     }
     
-    public String pruebaRuta(String ruta) throws MalformedURLException, FileNotFoundException, InterruptedException, IOException{
+    public String testRoute(String route) throws MalformedURLException, FileNotFoundException, InterruptedException, IOException{
         try {
-            File archivo = new File(ruta + "/prueba.txt");
-            archivo.deleteOnExit();
-            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+            File file = new File(route + "/prueba.txt");
+            file.deleteOnExit();
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.close();
             return "0";
         } catch (Exception e) {

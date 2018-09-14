@@ -1,4 +1,4 @@
-package controller;
+package GUI.GUI_controller;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,96 +18,95 @@ import variamos.utility.Installer;
  */
 public class GUIInstallerController {
     
-    private Configuration configuracion;
-    private variamos.utility.Installer instalador;
-    private String rutaVariaMos;
-    private Object[] acept = {"OK"};
+    private Configuration configuration;
+    private variamos.utility.Installer installer;
+    private final String variamosRoute;
+    private final Object[] acept = {"OK"};
     
-    public GUIInstallerController(String rutaVariaMos) {
-        configuracion = new Configuration();
-        instalador = new variamos.utility.Installer();
-        this.rutaVariaMos = rutaVariaMos;
+    public GUIInstallerController(String variamosRoute) {
+        configuration = new Configuration();
+        installer = new variamos.utility.Installer();
+        this.variamosRoute = variamosRoute;
     }
     
-    public void instalarSolver() throws FileNotFoundException, IOException, InterruptedException{
-        Object[] opciones = {"Try again", "Cancel"};
-        
+    public void installSolver() throws FileNotFoundException, IOException, InterruptedException{
+        Object[] options = {"Try again", "Cancel"};
     
-        int opcion;
-        if(configuracion.solverDl != null){
-            while(!instalador.downloadSolverFromURL(configuracion.solverDl, configuracion.nombreSolver)) {
-                opcion = JOptionPane.showOptionDialog(null, "Solver could not been downloaded", "Warning!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-                if(opcion == 0) continue;
-                if(opcion == 1) System.exit(1);
+        int option;
+        if(configuration.solverDl != null){
+            while(!installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
+                option = JOptionPane.showOptionDialog(null, "Solver could not been downloaded", "Warning!!", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(option == 0) continue;
+                if(option == 1) System.exit(1);
             }
             JOptionPane.showOptionDialog(null, "Solver has been downloaded successfully ", "Message", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
         }
-        if(!descargarSolverTerminal())
+        if(!downloadSolverTerminal())
             JOptionPane.showOptionDialog(null, "Solver has been downloaded successfully ", "Message", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
     }
     
-    public boolean descargarSolverTerminal() throws IOException, InterruptedException{
+    public boolean downloadSolverTerminal() throws IOException, InterruptedException{
         String sudoPass = "";       
-        int opcion;
-        Object[] opciones = {"Try again", "Cancel"};
-        if(configuracion.sistemaOperativo.contains("Linux") || configuracion.sistemaOperativo.contains("Mac OS")){
-            sudoPass = pedirContrasena();
+        int option;
+        Object[] options = {"Try again", "Cancel"};
+        if(configuration.operativeSystem.contains("Linux") || configuration.operativeSystem.contains("Mac OS")){
+            sudoPass = requestPassword();
         }
-        while(!instalador.instalarSolver(configuracion.sistemaOperativo, configuracion.nombreSolver, sudoPass)){
-            opcion = JOptionPane.showOptionDialog(null, "Invalid password", "Warning!!", 
-                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        while(!installer.instalarSolver(configuration.operativeSystem, configuration.solverName, sudoPass)){
+            option = JOptionPane.showOptionDialog(null, "Invalid password", "Warning!!", 
+                                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             
-            if(opcion == 0)  sudoPass = pedirContrasena();
+            if(option == 0)  sudoPass = requestPassword();
             else return false;
         }
         return true;
     }
     
-    public String pedirContrasena(){
-        char[] contrasena;
+    public String requestPassword(){
+        char[] password;
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Sudo password: ");
         JPasswordField pass = new JPasswordField(10);
         panel.add(label);
         panel.add(pass);
         String[] options = new String[]{"Ok", "Cancel"};
-        int opcion = JOptionPane.showOptionDialog(null, panel, "Sudo password",
+        int option = JOptionPane.showOptionDialog(null, panel, "Sudo password",
                          JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
                          null, options, options[0]);
-        if(opcion == 0) {
-            contrasena = pass.getPassword();
-            return new String(contrasena);
+        if(option == 0) {
+            password = pass.getPassword();
+            return new String(password);
         }else{
             return "";
         }
     }
     
-    public void descargarVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
-        Object[] opciones = {"Try again", "Cancel"};
-        int opcion;
-        File archivoVariamos;
-        if(configuracion.sistemaOperativo.equals("Windows")) archivoVariamos = new File(rutaVariaMos + "\\Variamos-Resources");
-        else archivoVariamos = new File(rutaVariaMos + "/Variamos-Resources");
-        archivoVariamos.mkdir();
-        while(!instalador.descargarVariamosFromURL(configuracion.variamosDl, configuracion.variamosVersion, rutaVariaMos)) {
-                opcion = JOptionPane.showOptionDialog(null, "VariaMos could not been downloaded", "Warning!!", 
-                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-                if(opcion == 0) continue;
-                if(opcion == 1) System.exit(1);
+    public void downloadVariaMos() throws FileNotFoundException, IOException, MalformedURLException, InterruptedException{
+        Object[] options = {"Try again", "Cancel"};
+        int option;
+        File variamosFile;
+        if(configuration.operativeSystem.equals("Windows")) variamosFile = new File(variamosRoute + "\\Variamos-Resources");
+        else variamosFile = new File(variamosRoute + "/Variamos-Resources");
+        variamosFile.mkdir();
+        while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, variamosRoute)) {
+                option = JOptionPane.showOptionDialog(null, "VariaMos could not been downloaded", "Warning!!", 
+                                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if(option == 0) continue;
+                if(option == 1) System.exit(1);
         }
         JOptionPane.showOptionDialog(null, "VariaMos has been downloaded successfully ", "Message", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, acept, acept[0]);
     }
     
     public Configuration getConfiguracion() {
-        return configuracion;
+        return configuration;
     }
 
     public Installer getInstalador() {
-        return instalador;
+        return installer;
     }
     
 }

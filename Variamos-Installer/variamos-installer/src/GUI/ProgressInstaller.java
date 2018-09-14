@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.GUI_controller.ProgressB;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,34 +11,34 @@ import java.awt.event.ActionListener;
  */
 public class ProgressInstaller extends javax.swing.JFrame {
 
-    public ProgressInstaller(String rutaVariamos) {
+    public ProgressInstaller(String variamosRoute) {
         initComponents();
         this.setTitle("Installing VariaMos and SWI-Prolog...");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
         
-        pasosTerminalTxt.setEditable(false);
+        terminalStepsTxt.setEditable(false);
         
-        instalacionProgramas(rutaVariamos);
+        programsInstalation(variamosRoute);
         
-        siguienteBtn.addActionListener(new ActionListener() {
+        nextBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                siguienteBtnActionPerformed(ae, rutaVariamos);
+                nextBtnActionPerformed(ae, variamosRoute);
             }
         }); 
         
     }
     
-    private void instalacionProgramas(String rutaVariaMos)  {
-        ProgressB p = new ProgressB(barraProgreso, rutaVariaMos, pasosTerminalTxt, siguienteBtn);
+    private void programsInstalation(String variamosRoute)  {
+        ProgressB p = new ProgressB(progressBar, variamosRoute, terminalStepsTxt, nextBtn);
         p.execute();
     }
     
-    private void siguienteBtnActionPerformed(ActionEvent ae, String rutaVariamos) {
-        Final vistaFinal = new Final(rutaVariamos);
-        vistaFinal.setVisible(true);
+    private void nextBtnActionPerformed(ActionEvent ae, String variamosRoute) {
+        Final finalView = new Final(variamosRoute);
+        finalView.setVisible(true);
         this.dispose();
     }
     
@@ -47,23 +48,23 @@ public class ProgressInstaller extends javax.swing.JFrame {
 
         variamosTitle = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        barraProgreso = new javax.swing.JProgressBar();
+        progressBar = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
-        pasosTerminalTxt = new javax.swing.JTextArea();
-        siguienteBtn = new javax.swing.JButton();
+        terminalStepsTxt = new javax.swing.JTextArea();
+        nextBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         variamosTitle.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         variamosTitle.setText("Installing VariaMos and SWI-Prolog");
 
-        pasosTerminalTxt.setColumns(20);
-        pasosTerminalTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        pasosTerminalTxt.setRows(5);
-        jScrollPane1.setViewportView(pasosTerminalTxt);
+        terminalStepsTxt.setColumns(20);
+        terminalStepsTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        terminalStepsTxt.setRows(5);
+        jScrollPane1.setViewportView(terminalStepsTxt);
 
-        siguienteBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        siguienteBtn.setText("Next");
+        nextBtn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        nextBtn.setText("Next");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,11 +84,11 @@ public class ProgressInstaller extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(barraProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(siguienteBtn)
+                .addComponent(nextBtn)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,22 +99,22 @@ public class ProgressInstaller extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(barraProgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(siguienteBtn)
+                .addComponent(nextBtn)
                 .addGap(11, 11, 11))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar barraProgreso;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    public javax.swing.JTextArea pasosTerminalTxt;
-    private javax.swing.JButton siguienteBtn;
+    private javax.swing.JButton nextBtn;
+    private javax.swing.JProgressBar progressBar;
+    public javax.swing.JTextArea terminalStepsTxt;
     private javax.swing.JLabel variamosTitle;
     // End of variables declaration//GEN-END:variables
 }

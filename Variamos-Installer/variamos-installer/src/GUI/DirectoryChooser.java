@@ -3,7 +3,7 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import controller.GUIDirectorioController;
+import GUI.GUI_controller.GUIDirectoryController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,9 +14,9 @@ import org.xml.sax.SAXException;
  * @author José David Henao Ocampo - Monitor Especialización en Desarrollo de Software
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
-public class Directorio extends javax.swing.JFrame {
+public class DirectoryChooser extends javax.swing.JFrame {
     
-    public Directorio() throws SAXException, IOException, ParserConfigurationException {
+    public DirectoryChooser() throws SAXException, IOException, ParserConfigurationException {
         initComponents();
         variamos.utility.Configuration config = new variamos.utility.Configuration();
         config.loadConfigurationFile();
@@ -24,21 +24,21 @@ public class Directorio extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
-        variamosRuteTxt.setEditable(false);
+        variamosRouteTxt.setEditable(false);
         printTxt.setText("VariaMos " + config.variamosVersion + "\nSWI-Prolog " + config.solverVersion); 
         printTxt.setEditable(false);
         
         installBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                instalarBtnActionPerformed(ae);
+                installBtnActionPerformed(ae);
             }
         });
         
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                atrasBtnActionPerformed(ae);
+                backBtnActionPerformed(ae);
             }
         });
         
@@ -46,37 +46,36 @@ public class Directorio extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 try {
-                    buscarBtnActionPerformed(ae);
+                    searchBtnActionPerformed(ae);
                 } catch (NullPointerException npe) {
-                    System.err.println("ruta invalida");
+                    System.err.println("Invalid Route");
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DirectoryChooser.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(Directorio.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(DirectoryChooser.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
         
     }
     
-    private void instalarBtnActionPerformed(ActionEvent ae) {
-        if(variamosRuteTxt.getText().equals("") || variamosRuteTxt.getText().equals(" ")) {
+    private void installBtnActionPerformed(ActionEvent ae) {
+        if(variamosRouteTxt.getText().equals("") || variamosRouteTxt.getText().equals(" ")) {
             JOptionPane.showMessageDialog(this, "Ingrese una ruta valida");
-            return;
         } else {
             this.setVisible(false);
-            new ProgressInstaller(variamosRuteTxt.getText());
+            new ProgressInstaller(variamosRouteTxt.getText());
         }
     }
     
-    private void buscarBtnActionPerformed(ActionEvent ae) throws NullPointerException, InterruptedException, IOException{
-        GUIDirectorioController controlador = new GUIDirectorioController();
-        variamosRuteTxt.setText(controlador.ejecucionDeRuta());
+    private void searchBtnActionPerformed(ActionEvent ae) throws NullPointerException, InterruptedException, IOException{
+        GUIDirectoryController controlador = new GUIDirectoryController();
+        variamosRouteTxt.setText(controlador.routeExecutor());
     }
     
-    private void atrasBtnActionPerformed(ActionEvent ae){
+    private void backBtnActionPerformed(ActionEvent ae){
         this.dispose();
-        Inicio ini = new Inicio();
+        Start ini = new Start();
         ini.setVisible(true);
     }
     
@@ -91,7 +90,7 @@ public class Directorio extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         printTxt = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        variamosRuteTxt = new javax.swing.JTextField();
+        variamosRouteTxt = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
         lblDownloadings = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -144,7 +143,7 @@ public class Directorio extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(variamosRuteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(variamosRouteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(infoLbl))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(searchBtn))
@@ -168,7 +167,7 @@ public class Directorio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(variamosRuteTxt))
+                    .addComponent(variamosRouteTxt))
                 .addGap(31, 31, 31)
                 .addComponent(infoLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -194,7 +193,7 @@ public class Directorio extends javax.swing.JFrame {
     private javax.swing.JLabel lblDownloadings;
     public javax.swing.JTextArea printTxt;
     private javax.swing.JButton searchBtn;
-    private javax.swing.JTextField variamosRuteTxt;
+    private javax.swing.JTextField variamosRouteTxt;
     private javax.swing.JLabel variamosTitle;
     // End of variables declaration//GEN-END:variables
 }

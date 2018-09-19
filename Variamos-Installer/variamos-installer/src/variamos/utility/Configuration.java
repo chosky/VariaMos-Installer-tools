@@ -17,12 +17,13 @@ import org.xml.sax.SAXException;
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class Configuration {
-    public String variamosVersion, variamosDl, solverVersion, solverDl, operativeSystem, operativeSystemVersion, solverName, versionJava;
+    public String variamosVersion, variamosDl, solverVersion, solverDl, operativeSystem, operativeSystemVersion, solverName, versionJava, javaPath;
     
     public Configuration(){
         versionJava = System.getProperty("java.version");
         operativeSystem = System.getProperty("os.name");
         operativeSystemVersion = System.getProperty("sun.arch.data.model");
+        javaPath = System.getProperty("java.home");
         solverName = "solver";
         if (operativeSystem.contains("Windows")) {
             solverName += ".exe";

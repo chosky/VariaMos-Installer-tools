@@ -147,7 +147,7 @@ public class Installer {
         process.destroy();
     }
      
-    public void configureEnvironmentVariables(String operativeSystem) throws IOException, InterruptedException {
+    public void configureSwiPlEnvironmentVariable(String operativeSystem) throws IOException, InterruptedException {
         if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
             String classpath = System.getenv("CLASSPATH");
@@ -168,7 +168,7 @@ public class Installer {
             process.waitFor();
         }
     }
-    
+  
     public boolean sudoTest(String pass) throws IOException, InterruptedException{
         String[] cmdComplete = {"/bin/bash", "-c", "echo " + pass + "| sudo -S ls"};
         Process process = Runtime.getRuntime().exec(cmdComplete);

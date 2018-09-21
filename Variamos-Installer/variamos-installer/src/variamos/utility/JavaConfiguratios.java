@@ -9,21 +9,28 @@ import java.io.IOException;
  */
 public class JavaConfiguratios {
     
-    public void configureJavaHomeEnvironmentVariable(String operativeSystem) throws IOException, InterruptedException {
+    public void configureJavaHomeEnvironmentVariable(String operativeSystem, String javaHome) throws IOException, InterruptedException {
         if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
             String classpath = System.getenv("CLASSPATH");
-            String programFiles = System.getenv("ProgramFiles");
-
-            if (!path.contains(programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\bin;")) {
-                path += ";" + System.getenv("ProgramFiles") + "\\swipl\\lib\\jpl.jar;" + System.getenv("ProgramFiles") + "\\swipl\\bin;";
+            
+            String JAVA_HOME = javaHome.substring(0, javaHome.length() - 4);
+            String JDK_HOME = "%" + JAVA_HOME + "%";
+            String JRE_HOME = javaHome;
+            
+            if (!path.contains(JAVA_HOME)) {
+                path += ";" + JAVA_HOME + "\\bin;";
             }
+            
             if (classpath != null) {
-                if (!classpath.contains(programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\lib;")) {
-                    classpath += ";" + programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\lib;";
+                if (!classpath.contains(JDK_HOME + "\\lib;")) {
+                    classpath += ";" + JDK_HOME + "\\lib;";
+                }
+                if (!classpath.contains(JRE_HOME + "\\lib;")){
+                    classpath += ";" + JDK_HOME + "\\lib;";
                 }
             } else {
-                classpath += ";" + programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\lib;";
+                classpath += ";" + JDK_HOME + "\\lib;" + JRE_HOME + "\\lib;";
             }
 
             String[] cmd = {"cmd", "/c", "set Path=\"" + path + "\" && setx CLASSPATH \"" + classpath + "\""};

@@ -51,19 +51,23 @@ public class ProgressB extends SwingWorker<Integer, String> {
         
         GUIInstallerController controller = new GUIInstallerController(this.route);
         
-        controller.getConfiguracion().loadConfigurationFile();
         getTxtarea().append("Starting configuration , please wait ... \n");
+        controller.getConfiguracion().loadConfigurationFile();
         
-        controller.installSolver();
         getTxtarea().append("Installing Solver, please wait...\n");
+        controller.installSolver();
         
+        getTxtarea().append("Setting the environment variables of the solver SWI-Prolog...\n");
         controller.getSolverConfigurations().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
-        getTxtarea().append("Setting environment variables...\n");
+        
+        getTxtarea().append("Setting the environment variables of Java...\n");
+        //controller.getJavaConfiguratios().configureJavaHomeEnvironmentVariable(route, );
         
         getTxtarea().append("Downloading VariaMos...\n");
         controller.downloadVariaMos();
-        getTxtarea().append("Installing VariaMos ...\n");
+        getTxtarea().append("Installing VariaMos...\n");
         
+        getTxtarea().append("Creating the Launcher of VariaMos...\n");
         controller.getVariaMosConfiguratios().launchVariamos(controller.getConfiguracion().operativeSystem, this.route);
         getTxtarea().append("VariaMos has been downloaded and installed successfully!! \n");
         

@@ -26,23 +26,23 @@ public class VariaMosConfiguratios {
             
             Files.copy(newUrl.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             
-            System.out.println("Variamos se descargo correctamente.");
+            System.out.println("Variamos it was downloaded.");
             return true;
 
         } catch (MalformedURLException mue) {
-            System.err.println("Variamos no se descargó correctamente porque el URL está malformado.");
+            System.err.println("Variamos it was not downloaded correctly because the URL is malformed.");
             return false;
         } catch (FileNotFoundException fnfe) {
-            System.err.println("Variamos no se descargó correctamente porque el archivo no existe.");
+            System.err.println("Variamos it was not downloaded correctly because the file does not exist.");
             return false;
         } catch(AccessDeniedException eas){
-            System.err.println("Variamos no se descargó correctamente porque la carpeta es de Administrador.");
+            System.err.println("Variamos it was not downloaded correctly because the folder is from Administrator.");
             return false;
         } catch (IOException ioe) {
-            System.err.println("Variamos no se descargó correctamente por operaciones de i/o.");
+            System.err.println("Variamos it was not downloaded correctly by i/o operations.");
             return false;
         } catch (Exception e) {
-            System.err.println("Variamos no se descargó.");
+            System.err.println("Variamos it was not downloaded.");
             return false;
         }
     }

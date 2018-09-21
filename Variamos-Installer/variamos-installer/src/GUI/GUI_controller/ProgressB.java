@@ -57,14 +57,14 @@ public class ProgressB extends SwingWorker<Integer, String> {
         controller.installSolver();
         getTxtarea().append("Installing Solver, please wait...\n");
         
-        controller.getInstalador().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
+        controller.getSolverConfigurations().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
         getTxtarea().append("Setting environment variables...\n");
         
         getTxtarea().append("Downloading VariaMos...\n");
         controller.downloadVariaMos();
         getTxtarea().append("Installing VariaMos ...\n");
         
-        controller.getInstalador().launchVariamos(controller.getConfiguracion().operativeSystem, this.route);
+        controller.getVariaMosConfiguratios().launchVariamos(controller.getConfiguracion().operativeSystem, this.route);
         getTxtarea().append("VariaMos has been downloaded and installed successfully!! \n");
         
         getJpbar().setIndeterminate(false);

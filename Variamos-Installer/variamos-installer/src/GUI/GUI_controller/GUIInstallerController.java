@@ -9,7 +9,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import variamos.utility.Configuration;
-import variamos.utility.Installer;
+import variamos.utility.JavaConfiguratios;
+import variamos.utility.SolverConfigurations;
+import variamos.utility.VariaMosConfiguratios;
 
 /**
  *
@@ -18,14 +20,18 @@ import variamos.utility.Installer;
  */
 public class GUIInstallerController {
     
-    private Configuration configuration;
-    private variamos.utility.Installer installer;
+    private final Configuration configuration;
+    private final variamos.utility.JavaConfiguratios javaConfigurations;
+    private final variamos.utility.SolverConfigurations solverConfigurations;
+    private final variamos.utility.VariaMosConfiguratios variamosConfigurations;
     private final String variamosRoute;
     private final Object[] acept = {"OK"};
     
     public GUIInstallerController(String variamosRoute) {
         configuration = new Configuration();
-        installer = new variamos.utility.Installer();
+        javaConfigurations = new variamos.utility.JavaConfiguratios();
+        solverConfigurations = new variamos.utility.SolverConfigurations();
+        variamosConfigurations = new variamos.utility.VariaMosConfiguratios();
         this.variamosRoute = variamosRoute;
     }
     
@@ -34,7 +40,7 @@ public class GUIInstallerController {
     
         int option;
         if(configuration.solverDl != null){
-            while(!installer.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
+            while(!solverConfigurations.downloadSolverFromURL(configuration.solverDl, configuration.solverName)) {
                 option = JOptionPane.showOptionDialog(null, "Solver could not been downloaded", "Warning!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(option == 0) continue;
@@ -55,7 +61,7 @@ public class GUIInstallerController {
         if(configuration.operativeSystem.contains("Linux") || configuration.operativeSystem.contains("Mac OS")){
             sudoPass = requestPassword();
         }
-        while(!installer.instalarSolver(configuration.operativeSystem, configuration.solverName, sudoPass)){
+        while(!solverConfigurations.installSolver(configuration.operativeSystem, configuration.solverName, sudoPass)){
             option = JOptionPane.showOptionDialog(null, "Invalid password", "Warning!!", 
                                                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
             
@@ -91,7 +97,7 @@ public class GUIInstallerController {
         if(configuration.operativeSystem.equals("Windows")) variamosFile = new File(variamosRoute + "\\Variamos-Resources");
         else variamosFile = new File(variamosRoute + "/Variamos-Resources");
         variamosFile.mkdir();
-        while(!installer.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, variamosRoute)) {
+        while(!variamosConfigurations.downloadVariamosFromURL(configuration.variamosDl, configuration.variamosVersion, variamosRoute)) {
                 option = JOptionPane.showOptionDialog(null, "VariaMos could not been downloaded", "Warning!!", 
                                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if(option == 0) continue;
@@ -105,8 +111,16 @@ public class GUIInstallerController {
         return configuration;
     }
 
-    public Installer getInstalador() {
-        return installer;
+    public JavaConfiguratios getJavaConfiguratios() {
+        return javaConfigurations;
+    }
+
+    public SolverConfigurations getSolverConfigurations() {
+        return solverConfigurations;
     }
     
+    public VariaMosConfiguratios getVariaMosConfiguratios() {
+        return variamosConfigurations;
+    }
+
 }

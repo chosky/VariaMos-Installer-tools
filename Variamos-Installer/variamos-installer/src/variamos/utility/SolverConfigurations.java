@@ -11,6 +11,7 @@ import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.LinkedList;
 
 /**
  *
@@ -18,6 +19,9 @@ import java.nio.file.StandardCopyOption;
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class SolverConfigurations {
+    
+    LinkedList<String> outTerminal = new LinkedList<>();
+    
     public boolean downloadSolverFromURL(String url, String solverName) throws MalformedURLException, FileNotFoundException, IOException {
         try {
             URL _url = new URL(url);
@@ -28,24 +32,24 @@ public class SolverConfigurations {
             Files.copy(_url.openStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             return true;
         } catch (MalformedURLException mue) {
-            System.err.println("SWI-Prolog no se descargó correctamente porque el URL está malformado.");
+            System.err.println("SWI-Prolog it was not downloaded correctly because the URL is malformed.");
             return false;
         } catch (FileNotFoundException fnfe) {
-            System.err.println("SWI-Prolog no se descargó correctamente porque el archivo no existe.");
+            System.err.println("SWI-Prolog it was not downloaded correctly because the file does not exist.");
             return false;
         } catch(AccessDeniedException eas){
-            System.err.println("SWI-Prolog no se descargó correctamente porque la carpeta es de Administrador.");
+            System.err.println("SWI-Prolog it was not downloaded correctly because the folder is from Administrator.");
             return false;
         } catch (IOException ioe) {
-            System.err.println("SWI-Prolog no se descargó correctamente por operaciones de i/o.");
+            System.err.println("SWI-Prolog it was not downloaded correctly by i/o operations.");
             return false;
         } catch (Exception e) {
-            System.err.println("SWI-Prolog no se descargó.");
+            System.err.println("SWI-Prolog it was not downloaded.");
             return false;
         }
     }
     
-    public boolean instalarSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
+    public boolean installSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
         Process process = null;
         if (operativeSystem.contains("Windows")) {
             String[] cmd = {"cmd", "/c", System.getProperty("user.dir") + "\\" + solverName + "\""};
@@ -83,6 +87,7 @@ public class SolverConfigurations {
         BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
         while ((s = br.readLine()) != null) {
             System.out.println(s);
+            outTerminal.add(s);
         }
         process.waitFor();
         System.out.println("exit: " + process.exitValue());

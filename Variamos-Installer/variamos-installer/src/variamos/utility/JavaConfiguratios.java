@@ -8,6 +8,7 @@ import java.io.IOException;
  *    &    Hassler Castro Cuesta - Monitor Especialización en Diseño Mecánico
  */
 public class JavaConfiguratios {
+    
     public void configureJavaHomeEnvironmentVariable(String operativeSystem) throws IOException, InterruptedException {
         if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
@@ -30,4 +31,5 @@ public class JavaConfiguratios {
             process.waitFor();
         }
     }
+    
 }

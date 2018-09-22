@@ -9,7 +9,11 @@ import java.io.IOException;
  */
 public class JavaConfiguratios {
     
-    public void configureJavaHomeEnvironmentVariable(String operativeSystem, String javaHome) throws IOException, InterruptedException {
+    public String[] configureJavaHomeEnvironmentVariable(String operativeSystem, String javaHome) throws IOException, InterruptedException {
+        String commands[] = new String[2];
+        String javaEnviromentVariablePath = "";
+        String javaEnviromentVariableClassPath = "";
+        
         if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
             String classpath = System.getenv("CLASSPATH");
@@ -33,10 +37,16 @@ public class JavaConfiguratios {
                 classpath += ";" + JDK_HOME + "\\lib;" + JRE_HOME + "\\lib;";
             }
 
-            String[] cmd = {"cmd", "/c", "set Path=\"" + path + "\" && setx CLASSPATH \"" + classpath + "\""};
+            javaEnviromentVariablePath =  ";" + JAVA_HOME + "\\bin;";
+            javaEnviromentVariableClassPath = ";" + JDK_HOME + "\\lib;" + JRE_HOME + "\\lib;";
+            commands[0] = javaEnviromentVariablePath;
+            commands[1] = javaEnviromentVariableClassPath;
+            
+            String[] cmd = {"cmd", "/c", "set Path=\"" + path + "\" && set CLASSPATH=\"" + classpath + "\""};
             Process process = Runtime.getRuntime().exec(cmd);
             process.waitFor();
         }
+        return commands;
     }
     
 }

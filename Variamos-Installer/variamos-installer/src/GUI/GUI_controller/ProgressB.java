@@ -48,6 +48,8 @@ public class ProgressB extends SwingWorker<Integer, String> {
     protected Integer doInBackground() throws Exception {
         getJpbar().setIndeterminate(true);
         nextBtn.setEnabled(false);
+        String[] commandSolver = new String[2];
+        String[] commandJava = new String[2];
         
         GUIInstallerController controller = new GUIInstallerController(this.route);
         
@@ -58,17 +60,17 @@ public class ProgressB extends SwingWorker<Integer, String> {
         controller.installSolver();
         
         getTxtarea().append("Setting the environment variables of the solver SWI-Prolog...\n");
-        controller.getSolverConfigurations().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
+        commandSolver = controller.getSolverConfigurations().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
         
         getTxtarea().append("Setting the environment variables of Java...\n");
-        //controller.getJavaConfiguratios().configureJavaHomeEnvironmentVariable(route, );
+        commandJava = controller.getJavaConfiguratios().configureJavaHomeEnvironmentVariable(controller.getConfiguracion().operativeSystem, controller.getConfiguracion().javaPath);
         
         getTxtarea().append("Downloading VariaMos...\n");
         controller.downloadVariaMos();
         getTxtarea().append("Installing VariaMos...\n");
         
         getTxtarea().append("Creating the Launcher of VariaMos...\n");
-        controller.getVariaMosConfiguratios().launchVariamos(controller.getConfiguracion().operativeSystem, this.route);
+        controller.getVariaMosConfiguratios().launchVariamos(controller.getConfiguracion().operativeSystem, this.route, commandSolver, commandJava);
         getTxtarea().append("VariaMos has been downloaded and installed successfully!! \n");
         
         getJpbar().setIndeterminate(false);

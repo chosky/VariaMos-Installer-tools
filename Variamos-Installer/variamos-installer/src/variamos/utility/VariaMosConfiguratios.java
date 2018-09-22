@@ -47,12 +47,12 @@ public class VariaMosConfiguratios {
         }
     }
     
-    public void launchVariamos(String operativeSystem, String launcherRoute) throws IOException {
+    public void launchVariamos(String operativeSystem, String launcherRoute, String[] commandSolver, String[] commandJava) throws IOException {
         if (operativeSystem.contains("Windows")) {
             PrintWriter writer = new PrintWriter(launcherRoute + "\\Variamos-Resources\\Variamos.bat", "UTF-8");
             writer.println("@echo off");
-            writer.println("set CLASSPATH=.;C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\lib;%CLASSPATH%");
-            writer.println("set Path=C:\\Program Files\\swipl\\lib\\jpl.jar;C:\\Program Files\\swipl\\bin;%Path%");
+            writer.println("set CLASSPATH=." + commandSolver[1] + commandJava[1] + "%CLASSPATH%");
+            writer.println("set Path=" + commandSolver[0] + commandJava[0] + "%Path%");
             writer.println("java -jar " + "\"" + launcherRoute + "\\Variamos-Resources\\variamos_pre-file.jar\"");
             writer.close();
         } else if (operativeSystem.contains("Linux")) {

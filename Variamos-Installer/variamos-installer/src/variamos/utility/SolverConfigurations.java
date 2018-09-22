@@ -52,7 +52,7 @@ public class SolverConfigurations {
     public boolean installSolver(String operativeSystem, String solverName, String sudoPass) throws IOException, InterruptedException {
         Process process = null;
         if (operativeSystem.contains("Windows")) {
-            String[] cmd = {"cmd", "/c", System.getProperty("user.dir") + "\\" + solverName + "\""};
+            String[] cmd = {"cmd", "/c", "\"" + System.getProperty("user.dir") + "\\" + solverName + "\""};
             process = Runtime.getRuntime().exec(cmd);
             process.waitFor();
             process.destroy();
@@ -94,7 +94,10 @@ public class SolverConfigurations {
         process.destroy();
     }
      
-    public void configureSwiPlEnvironmentVariable(String operativeSystem) throws IOException, InterruptedException {
+    public String[] configureSwiPlEnvironmentVariable(String operativeSystem) throws IOException, InterruptedException {
+        String commands[] = new String[2];
+        String solverEnviromentVariablePath = "";
+        String solverEnviromentVariableClassPath = "";
         if (operativeSystem.contains("Windows")) {
             String path = System.getenv("Path");
             String classpath = System.getenv("CLASSPATH");
@@ -110,11 +113,17 @@ public class SolverConfigurations {
             } else {
                 classpath += ";" + programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\lib;";
             }
-
-            String[] cmd = {"cmd", "/c", "set Path=\"" + path + "\" && setx CLASSPATH \"" + classpath + "\""};
+            
+            solverEnviromentVariablePath = programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\bin;";
+            solverEnviromentVariableClassPath = ";" + programFiles + "\\swipl\\lib\\jpl.jar;" + programFiles + "\\swipl\\lib;";
+            commands[0] = solverEnviromentVariablePath;
+            commands[1] = solverEnviromentVariableClassPath;
+            
+            String[] cmd = {"cmd", "/c", "set Path=\"" + path + "\" && set CLASSPATH=.\"" + classpath + "\""};
             Process process = Runtime.getRuntime().exec(cmd);
             process.waitFor();
         }
+        return commands;
     }
     
     public boolean sudoTest(String pass) throws IOException, InterruptedException{

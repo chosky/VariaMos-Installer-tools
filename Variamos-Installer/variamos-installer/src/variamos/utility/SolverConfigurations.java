@@ -68,9 +68,9 @@ public class SolverConfigurations {
             if(!sudoTest(sudoPass)) return false;
             if(!preConfigurationOSX()) {
                 runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/");
-                runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/lib/");
-                runCommand("echo " + sudoPass + "| sudo export PATH=$PATH:/usr/local/lib/");
+                runCommand("echo " + sudoPass + "| sudo -S mkdir /usr/local/lib/");          
             }
+            runCommand("echo " + sudoPass + "| sudo export PATH=$PATH:/usr/local/lib/");
             runCommand("echo " + sudoPass + "| sudo -S hdiutil attach " + solverName);
             runCommand("echo " + sudoPass + "| sudo -S cp -R /Volumes/SWI-Prolog/SWI-Prolog.app /Applications");
             runCommand("hdiutil unmount /Volumes/SWI-Prolog/");

@@ -59,10 +59,10 @@ public class ProgressB extends SwingWorker<Integer, String> {
         getTxtarea().append("Installing Solver, please wait...\n");
         controller.installSolver();
         
-        getTxtarea().append("Setting the environment variables of the solver SWI-Prolog...\n");
+        getTxtarea().append("Setting SWI-Prolog solver environment variables...\n");
         commandSolver = controller.getSolverConfigurations().configureSwiPlEnvironmentVariable(controller.getConfiguracion().operativeSystem);
         
-        getTxtarea().append("Setting the environment variables of Java...\n");
+        getTxtarea().append("Setting Java environment variables...\n");
         commandJava = controller.getJavaConfiguratios().configureJavaHomeEnvironmentVariable(controller.getConfiguracion().operativeSystem, controller.getConfiguracion().javaPath);
         
         getTxtarea().append("Downloading VariaMos...\n");
@@ -71,7 +71,7 @@ public class ProgressB extends SwingWorker<Integer, String> {
         
         getTxtarea().append("Creating the Launcher of VariaMos...\n");
         controller.getVariaMosConfiguratios().launchVariamos(controller.getConfiguracion().operativeSystem, this.route, commandSolver, commandJava);
-        getTxtarea().append("VariaMos has been downloaded and installed successfully!! \n");
+        getTxtarea().append("VariaMos was downloaded and successfully installed!! \n");
         
         getJpbar().setIndeterminate(false);
         nextBtn.setEnabled(true);

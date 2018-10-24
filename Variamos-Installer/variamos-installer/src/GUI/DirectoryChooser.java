@@ -107,7 +107,7 @@ public class DirectoryChooser extends javax.swing.JFrame {
         installBtn.setText("Install");
 
         infoLbl.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        infoLbl.setText("These software will be installed");
+        infoLbl.setText(" The following software will be installed");
 
         printTxt.setColumns(20);
         printTxt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -142,9 +142,9 @@ public class DirectoryChooser extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(variamosRouteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(infoLbl))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(variamosRouteTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                            .addComponent(infoLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(searchBtn))
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))))
